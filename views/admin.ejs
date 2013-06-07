@@ -1,0 +1,352 @@
+<style type="text/css">
+	.CodeMirror {
+		border: 1px solid #ddd;
+		border-radius: 4px;
+		width:100%;
+		font-family: Monaco, Menlo,"Andale Mono","lucida console","Courier New",monospace !important;
+		font-size: 85%;
+	}
+</style>
+
+
+<script>
+$(document).ready(function() {
+
+	// make server JSON accessible to client
+	var templatesList=<%-JSON.stringify(templates._docs)%>;
+	
+	//$('.CodeMirror').addClass("span8");
+	
+	$('.select-template').click(function(){
+		console.log('selected..'+$(this).text());
+		window.location.href='/admin/templates/'+$(this).text()+'#templates';
+		return false;
+	});
+	
+	$('.load-template').click(function(){
+		var t = $(this).text();
+		var prevTextarea = $(this).parents('.controls').find('textarea');
+		
+		if (prevTextarea.val().length > 0) {
+			if (confirm('Are you sure you want to overwrite the content?')) {
+				eval(prevTextarea.attr("id")+".setValue(templatesList[t].template)");
+			}
+		}
+		else {
+			prevTextarea.val(templatesList[t].template);
+			eval(prevTextarea.attr("id")+".setValue(templatesList[t].template)");
+		}
+		
+		$(this).parents('.btn-group').removeClass('open'); // hide dropdown
+		return false;
+	});
+	
+	$('#deleteTemplate').click(function(){
+		var id = $(this).parents('.controls').find('form').attr("action");
+		if (confirm('Are you sure you want to delete this template?')) {
+			$.ajax({
+			  type: 'delete', 
+			  url: id,
+			  success: function(msg){ 
+				alert("success");    
+			  },
+			  error: function(msg){
+				alert("error:" + msg);
+			  }
+			});     
+		}
+		return false;
+	});
+	
+	$('.btnDel').click(function(){
+		var f=$(this).parents("form:first"),
+			action=f.attr("action"),
+			id=f.find("#inputSection").val();
+		
+		//console.log(id);
+		if (confirm('Are you sure?')){
+			$.ajax({
+			  type: 'delete', 
+			  url: action,
+			  success: function(msg){ 
+				f.remove();
+				$('#menu'+id).remove();
+				showAlert("Success: "+msg);
+			  },
+			  error: function(msg){
+				alert("error:" + msg);
+			  }
+			});   
+		}
+		return false;
+	})
+	
+	$('.btnSave').click(function(){
+		var form = $(this).parents("form:first");
+		var formAction = $(this).parents("form:first").attr("action");
+		//console.log(formAction);
+		
+		//copy the CodeMirror contents to textarea
+		var prevTextarea = $(this).parents('form').find('textarea');
+		eval(prevTextarea.attr("id")+".save()");
+		
+		$.ajax({
+			type: 'post',
+			data: form.serialize(),
+			url: formAction,
+			success:function(msg){ 
+				showAlert("Success: " + msg);    
+			},
+			error: function(msg){
+				alert("Error: " + msg);
+			}
+		}); 
+		return false;
+	})
+	
+});
+</script>
+
+<div class="container">
+	
+	<div class="subnav span10">
+		<ul class="nav nav-pills" id="admin-menu">
+		  <li><a href="#">Admin</a></li>
+		  <li><a href="#pages">Pages</a></li>
+		  <li><a href="#sections">Sections</a></li>
+		  <li><a href="#templates">Templates</a></li>
+		</ul>
+	</div>
+	
+	<div id="app" class="span10">
+	<h1>App Settings</h1>
+	<form class="form-horizontal" action="/admin/app" method="POST">
+		<div class="control-group">
+			<label class="control-label" for="inputName">Name</label>
+			<div class="controls">
+				<input type="text" id="inputName" name="name" placeholder="Name" value="<%=app.name%>">
+			</div>
+		</div>
+		<div class="control-group">
+			<label class="control-label" for="inputTitle">Title</label>
+			<div class="controls">
+				<input type="text" class="input-xlarge" id="inputTitle" name="title" placeholder="Title" value="<%=app.title%>">
+			</div>
+		</div>
+		<div class="control-group">
+			<label class="control-label" for="inputKeywords">Keywords</label>
+			<div class="controls">
+				<input type="text" class="input-xlarge" id="inputKeywords" name="keywords" placeholder="keyword1,keyword2,keyword3" value="<%=app.keywords%>">
+			</div>
+		</div>
+		<div class="control-group">
+			<label class="control-label" for="inputDescription">Description</label>
+			<div class="controls">
+				<textarea id="inputDescription" name="description" class="input-xxlarge" rows="3" placeholder="Description goes here"><%=app.description%></textarea>
+			</div>
+		</div>
+		<div class="control-group">
+			<div class="controls">
+				<button class="btn btn-huge btn-info">Save</button>
+			</div>
+		</div>
+	</form>
+	</div>
+	
+	<div id="pages" class="span10">
+	<h1>Page</h1>
+	<form class="form-horizontal" action="/admin/page" method="POST">
+		<div class="control-group">
+			<label class="control-label" for="inputHeading">Heading</label>
+			<div class="controls">
+				<input type="text" class="input-xlarge" id="inputHeading" name="heading" value="<%=page.heading%>" placeholder="Page Heading">
+			</div>
+		</div>
+		<div class="control-group">
+			<label class="control-label" for="inputPermalink">Permalink</label>
+			<div class="controls">
+				<input type="text" class="input-xlarge" id="inputPermalink" name="permalink" value="<%=page.permalink%>" placeholder="page-link-title">
+			</div>
+		</div>
+		<div class="control-group">
+			<label class="control-label" for="inputScript">Script</label>
+			<div class="controls">
+				<textarea id="inputScript" name="script" class="input-xxlarge" rows="3" placeholder="Document load scripts go here"><%=page.script%></textarea>
+			</div>
+		</div>
+		<div class="control-group">
+			<div class="controls">
+				<button class="btn btn-huge btn-info">Save</button>
+			</div>
+		</div>
+	</form>
+	</div>
+	
+	<div id="sections" class="span10">
+	<h1>Sections</h1>
+	
+	<ul class="nav nav-pills" id="admin-menu">
+		<% i=0 %>
+		<% sections.forEach( function( k,v ){ %>
+		<% if (v){ %>
+		<% i++ %>
+		<li><a href="#form<%=k%>"><%=k%></a></li>
+		<% }}) %>
+		<li><a href="#formNew" title="Create a new section"><b>+</b></a></li>
+	</ul>
+	
+	<% i=0 %>
+	<% sections.forEach( function( k,v ){ %>
+	<% if (v){ %>
+	<section id="<%=k%>"></section>
+	<form class="form-horizontal" action="/admin/sections/<%=k%>" method="POST" id="form<%=k%>">
+	<hr class="span11"/>
+		<div class="control-group">
+			<label class="control-label" for="inputSection">Section</label>
+			<div class="controls">
+				<input type="text" class="input-xlarge" id="inputSection" name="section" placeholder="Enter section name" value="<%= k %>">
+			</div>
+		</div>
+		<div class="control-group">
+			<label class="control-label" for="inputEnabled">Enabled </label>
+			<div class="controls">
+				<input <% if (v.enabled) {%>checked<% } %> type="checkbox" class="input-medium" id="inputEnabled" name="enabled" value="1">
+			</div>
+		</div>
+		<div class="control-group">
+			<label class="control-label" for="inputMenuText">Menu Text</label>
+			<div class="controls">
+				<input type="text" class="input-medium" id="inputMenuText" name="menuText" placeholder="Menu text" value="<%- v.menuText %>">
+			</div>
+		</div>
+		<div class="control-group">
+			<label class="control-label" for="inputCss">Css</label>
+			<div class="controls">
+				<input type="text" class="input-medium" id="inputCssClass" name="cssClass" placeholder="Enter css class names" value="<%- v.cssClass %>">
+			</div>
+		</div>
+		<div class="control-group">
+			<label class="control-label" for="inputHeading">Heading</label>
+			<div class="controls">
+				<input type="text" class="input-medium" id="inputHeading" name="heading" placeholder="Heading" value="<%- v.heading %>">
+			</div>
+		</div>
+		<div class="control-group">
+			<label class="control-label" for="inputContent" title="Text, HTML, Javascript or jQuery code can be used here.">Content</label>
+			<div class="controls">
+				<textarea id="inputContent<%=i%>" name="content" class="input-xxlarge span9" rows="7" placeholder="Content goes here"><%= v.content %></textarea>
+				<script>
+				var inputContent<%=i%> = CodeMirror.fromTextArea(document.getElementById("inputContent<%=i%>"),{mode: "text/html", tabMode: "indent"});
+				</script>
+				<div class="btn-group">
+					<button class="btn btn-small">Load from Template</button>
+					<button class="btn btn-small dropdown-toggle" data-toggle="dropdown">
+					<span class="caret"></span>
+					</button>
+					<ul class="dropdown-menu">
+						<% templates.forEach( function( k,v ){ %>
+							<li><a href='#' class='load-template'><%= k %></a></li>
+						<% }) %>
+					</ul>
+				</div>
+			</div>
+		</div>
+		<div class="control-group">
+			<div class="controls">
+				<button type="button" class="btn btn-xlarge btn-danger btnDel">Delete</button> <button type="button" class="btn btn-xlarge btn-info btnSave">Save</button>
+			</div>
+		</div>
+	</form>
+	<% i++ %>
+	<% } %>
+	<% }) %>
+	<form class="form-horizontal" action="/admin/sections" method="POST" id="formNew">
+	<hr class="span11"/>
+		<input type="hidden" id="inputEnabled" name="enabled" value="1">
+		<input type="hidden" id="inputMenuText" name="menuText"
+		<input type="hidden" id="inputCssClass" name="cssClass">
+		<input type="hidden" id="inputHeading" name="heading">
+		<div class="control-group">
+			<label class="control-label" for="inputSection">New Section</label>
+			<div class="controls">
+				<input type="text" class="input-xlarge" id="inputSection" name="section" placeholder="Enter section name">
+			</div>
+		</div>
+		<div class="control-group">
+			<label class="control-label" for="inputContent">Content</label>
+			<div class="controls">
+				<textarea id="inputContentNew" name="content" class="input-xxlarge span9" rows="7" placeholder="Content goes here"></textarea>
+				<script>
+				var inputContentNew = CodeMirror.fromTextArea(document.getElementById("inputContentNew"), {mode: "text/html", tabMode: "indent"});
+				</script>
+				<div class="btn-group">
+					<button class="btn btn-small">Load from Template</button>
+					<button class="btn btn-small dropdown-toggle" data-toggle="dropdown">
+					<span class="caret"></span>
+					</button>
+					<ul class="dropdown-menu">
+						<% templates.forEach( function( k,v ){ %>
+							<li><a href='#' class='load-template'><%= k %></a></li>
+						<% }) %>
+					</ul>
+				</div>
+			</div>
+		</div>
+		<div class="control-group">
+			<div class="controls">
+				<button type="submit" class="btn btn-xlarge btn-info">Create</button>
+			</div>
+		</div>
+	</form>
+	</div>
+	
+	<div id="templates" class="span10">
+	<h1>Templates</h1>
+	<form class="form-horizontal">
+		<div class="control-group">
+		<label class="control-label"></label>
+			<div class="controls">
+				<div class="btn-group">
+					<button class="btn btn-small">Select Template to Edit</button>
+					<button class="btn btn-small dropdown-toggle" data-toggle="dropdown">
+					<span class="caret"></span>
+					</button>
+					<ul class="dropdown-menu">
+						<% templates.forEach( function( k,v ){ %>
+							<li <% if (typeof template!="undefined" && locals.id===k) {%>class='active'<%}%>><a href='#' class='select-template'><%= k %></a></li>
+						<% }) %>
+					</ul>
+				</div>
+			</div>
+		</div>
+	</form>
+	
+	<% if (typeof template!="undefined") {%>
+	<form class="form-horizontal" action="/admin/templates/<%=locals.id%>" method="POST">
+		<div class="control-group">
+			<label class="control-label" for="inputName">Name</label>
+			<div class="controls">
+				<input type="text" class="input-xlarge" id="inputName" name="name" placeholder="Enter template name" value="<%= template.name %>">
+			</div>
+		</div>
+		<div class="control-group">
+			<label class="control-label" for="inputTemplate">Template</label>
+			<div class="controls">
+				<textarea id="inputTemplate" name="template" class="input-xxlarge span9" rows="12" placeholder="Template goes here"><%= template.template %></textarea>
+				<script>
+				var inputTemplate = CodeMirror.fromTextArea(document.getElementById("inputTemplate"), {mode: "text/html", tabMode: "indent"});
+				</script>
+			</div>
+		</div>
+		<div class="control-group">
+			<div class="controls">
+				<button type="button" class="btn btn-xlarge btn-danger" id="deleteTemplate">Delete</button> <button type="button" class="btn btn-xlarge btn-info btnSave">Save</button>
+			</div>
+		</div>
+	</form>
+	<% } %>
+	
+	</div>
+</div>
+
+<div>&nbsp;</div>

@@ -1,0 +1,42 @@
+<style>
+
+</style>
+
+<script>
+$(document).ready(function() {
+
+	
+	
+});
+</script>
+
+<div class="container">
+
+	<% if (typeof msg!="undefined") {%><div class="alert alert-info"><%=msg%></div><%}%>
+	
+	<div id="login" class="span10">
+	<h1>Login</h1>
+	<form class="form-horizontal span5" action="/login" method="POST">
+		<div class="control-group">
+			<label class="control-label" for="inputName">Name</label>
+			<div class="controls">
+				<input type="text" id="inputName" name="name" placeholder="Name">
+			</div>
+		</div>
+		<div class="control-group">
+			<label class="control-label" for="inputTitle">Password</label>
+			<div class="controls">
+				<input type="password" id="inputPassword" name="password" placeholder="Password">
+			</div>
+		</div>
+		<div class="control-group">
+			<div class="controls">
+				<button class="btn btn-huge btn-info">Save</button>
+			</div>
+		</div>
+	</form>
+	</div>
+	
+</div>
+
+<div>&nbsp;</div>
