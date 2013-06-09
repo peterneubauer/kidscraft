@@ -17,8 +17,8 @@
 	<link href="/bootstrap/css/bootstrap.min.css" rel="stylesheet">
     <style type="text/css">
 		body {
-			padding-top: 60px;
-			padding-bottom: 40px;
+			padding-top: 0px;
+			padding-bottom: 0px;
 		}
 		.footer {
 			position:fixed;
@@ -64,6 +64,14 @@
 			position: relative;
 			top:-5px;
 		}
+        section {
+            padding-top: 30px;
+        }
+        #myCarousel img {
+            width: auto;
+            height: 225px;
+            max-height: 225px;
+        }
     </style>
     <link href="/bootstrap/css/bootstrap-responsive.css" rel="stylesheet">
 
@@ -80,7 +88,7 @@
     <script src="//ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
     <script>window.jQuery || document.write('<script src="bootstrap/js/jquery-1.7.1.min.js"><\/script>')</script>
 	<script src="/bootstrap/js/bootstrap.min.js"></script>
-	<script type="text/javascript" src="http://plugins.in1.com/scripts/socialist.js"></script>
+	<!--<script type="text/javascript" src="http://plugins.in1.com/scripts/socialist.js"></script>-->
 	<script>
 	function unspace(str) {
 		if (str==null)
@@ -216,7 +224,7 @@
 					<li class="dropdown">
 					  <a href="#" class="dropdown-toggle" data-toggle="dropdown"> <b class="caret"></b></a>
 					  <ul class="dropdown-menu">
-						<li><a href="http://www.in1.com">In1</a></li>
+						<!--<li><a href="http://www.in1.com">In1</a></li>-->
 						<li><a href="/admin">Admin</a></li>
 						<li class="divider"></li>
 						<li><a href="#About">About</a></li>
@@ -230,9 +238,9 @@
 		</div>
 	</div>
   
-	<!--<div class="container-fluid">
+	<div class="container-fluid">
 	<div class="span3 alert alert-info" id="msgBox" style="top:10%;right:3%;position:fixed;z-index:100;display:none;"></div>
-	</div>-->
+	</div>
   
     <%- body %>
 	

@@ -1,2 +1,2 @@
 {"key":"app","val":{"name":"Kidscraft","title":"Kidscraft - Minecraft party for kids 9-14 in Malmö","keywords":"one page,single page,bootstrap,mobile,app,apps,twitter bootstrap,node,node.js,portal,node starter,node template,twitter bootstrap,bootstrap,site,template,node blog,node app,site,cross,cross platform,web or mobile,responsive,boilerplate,html,javascript,css","description":"Kidscraft samlar barn i åldern 9-14 år för en spännande eftermiddag på stapeln den 24. Augusti 2013. Hej"}}
-{"key":"page","val":{"heading":"","permalink":"","script":""}}
+{"key":"page","val":{"heading":"","permalink":"","script":"var test='dummy'"}}
