@@ -318,6 +318,7 @@ app.del('/admin/templates/:k', function(req,res){
 app.post('/contact', function(req,res){
 	appDb = dirty('app.db');
 	console.log('contact form submit.');
+	console.log(req);
 	
 	appDb.on('load', function() {
 		console.log('Form submitted.');
