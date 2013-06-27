@@ -1,61 +1,477 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Kidscraft - Minecraft party for kids 9-14 in Malmö</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description"
+      content="Kidscraft samlar barn i åldern 9-14 år för en spännande eftermiddag på stapeln den 24. Augusti 2013. Hej">
+<meta name="keywords"
+      content="one page,single page,bootstrap,mobile,app,apps,twitter bootstrap,node,node.js,portal,node starter,node template,twitter bootstrap,bootstrap,site,template,node blog,node app,site,cross,cross platform,web or mobile,responsive,boilerplate,html,javascript,css">
+
+<script src="/codemirror/lib/codemirror.js"></script>
+<link rel="stylesheet" href="/codemirror/lib/codemirror.css">
+<script src="/codemirror/mode/css/css.js"></script>
+<script src="/codemirror/mode/javascript/javascript.js"></script>
+<script src="/codemirror/mode/xml/xml.js"></script>
+<script src="/codemirror/mode/htmlmixed/htmlmixed.js"></script>
+
+<link href="/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+<style type="text/css">
+    body {
+        padding-top: 0px;
+        padding-bottom: 0px;
+    }
+
+    .footer {
+        position: fixed;
+        z-index: 10;
+        bottom: 5px;
+        right: 10px;
+    }
+
+    #menuSticky {
+        z-index: 5;
+        *position: fixed;
+        *top: 99px;
+        right: 16px;
+        padding: 7px;
+        padding-top: 12px;
+    }
+
+    #menuSticky ul {
+        list-style: none;
+        margin: 0;
+    }
+
+    #menuSticky li {
+        position: relative;
+        background: none repeat scroll 0 0 #cccccc;
+        border: 1px solid #aaaaaa;
+        border-radius: 15px 15px 15px 15px;
+        cursor: pointer;
+        height: 9px;
+        margin: 10px 10px 0px 0px;
+        width: 18px;
+        vertical-align: bottom;
+    }
+
+    #menuSticky li.active {
+        background-color: #ffffff;
+        background-image: -moz-linear-gradient(center top, #FFFFFF, #EEEEEE);
+        background-repeat: repeat-x;
+    }
+
+    #menuSticky li:hover {
+        background: none repeat scroll 0 0 #EEEEEE;
+    }
+
+    #menuSticky a {
+        outline: 0;
+        vertical-align: top;
+        margin: 0px 0px 0px 25px;
+        position: relative;
+        top: -5px;
+    }
+
+    section {
+        padding-top: 30px;
+    }
+
+    #myCarousel img {
+        width: auto;
+        height: 225px;
+        max-height: 225px;
+    }
+</style>
+<link href="/bootstrap/css/bootstrap-responsive.css" rel="stylesheet">
+
+<!--[if lt IE 9]>
+<script src="//html5shim.googlecode.com/svn/trunk/html5.js"></script>
+<![endif]-->
+
+<link rel="shortcut icon" href="/bootstrap/img/favicon.ico">
+<link rel="apple-touch-icon" href="/bootstrap/img/apple-touch-icon.png">
+<link rel="apple-touch-icon" sizes="72x72" href="/bootstrap/img/apple-touch-icon-72x72.png">
+<link rel="apple-touch-icon" sizes="114x114" href="/bootstrap/img/apple-touch-icon-114x114.png">
+
+<!-- load jquery from google CDN, with a protocol relative URL; otherwise local if offline -->
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+<script>window.jQuery || document.write('<script src="bootstrap/js/jquery-1.7.1.min.js"><\/script>')</script>
+<script src="/bootstrap/js/bootstrap.min.js"></script>
+<!--<script type="text/javascript" src="http://plugins.in1.com/scripts/socialist.js"></script>-->
+<script>
+    function unspace(str) {
+        if (str == null)
+            return;
+
+        return str.replace("!", "").toLowercase().replace(" ", "");
+    }
+
+    $(document).ready(function () {
+
+        $('#scrollTop').click(function () {
+            $('html, body').animate({scrollTop: 0}, 'slow');
+            return false;
+        });
+
+        $('[title]').tooltip();
+
+        /* dot nav */
+        redrawDotNav();
+
+        $(window).bind('scroll', function (e) {
+            //parallaxScroll();
+            redrawDotNav();
+        });
+
+        function redrawDotNav() {
+
+            var topNavHeight = 61;
+
+            $('#menuSticky li a').removeClass('active').parent('li').removeClass('active');
+
+            var numDivs = $('section.sec').length;
+            $('section.sec').each(function (i, item) {
+                var ele = $(item), nextTop;
+
+                if ($('section.sec' + (i + 2)).offset() !== null) {
+                    nextTop = $('section.sec' + (i + 2)).offset().top;
+                }
+                else {
+                    nextTop = $(document).height();
+                }
+
+                //console.log("sec"+(i+1));
+
+                if (ele.offset() !== null) {
+                    thisTop = ele.offset().top - ((nextTop - ele.offset().top) / numDivs);
+                }
+                else {
+                    thisTop = 0;
+                }
+
+                var docTop = $(document).scrollTop() + topNavHeight;
+
+                if (docTop >= thisTop && (docTop < nextTop)) {
+                    $('#menuSticky a.sec' + (i + 1)).parent('li').addClass('active');
+                }
+            });
+
+        }
+
+        /* end dot nav */
+
+        $('#section-menu li:first').addClass("active");
+        $('#section-menu li a, #admin-menu li a, .smooth, #menuSticky li').click(function () {
+            var id = $(this).attr("href").replace("/", ""),
+                    posi,
+                    ele,
+                    padding = parseInt($('body').css('padding-top'));
+
+            ele = $(id);
+            posi = ($(ele).offset() || 0).top - padding;
+
+            $('html, body').animate({scrollTop: posi}, 'slow');
+
+            return false;
+        });
+
+        $('#main-menu li a').click(function () {
+            $('#main-menu li').removeClass('active');
+            $(this).parent().addClass('active');
+        });
+
+        var test = 'dummy'
+
+    });
+
+    /* alert handling */
+
+    function showAlert(msg) {
+        if (typeof msg == "undefined")
+            return;
+
+        console.log("alerting:" + msg);
+
+        $('#msgBox').html(msg + '<a class="close" href="#">&times;</a>').fadeIn().delay(3500).fadeOut('slow');
+
+        return false;
+    }
+
+
+    /* end alert handling */
+
+</script>
+</head>
+
+<body>
+
+<div class="navbar navbar-fixed-top">
+    <div class="navbar-inner">
+        <div class="container-fluid">
+            <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </a>
+            <a class="brand" href="/">Kidscraft</a>
+
+            <div class="nav-collapse" id="main-menu">
+                <ul class="nav" id="section-menu">
+                    <li id="menuIntro"><a href="/#Intro" title="Hem">Hem</a></li>
+                    <li id="menuVad"><a href="/#Vad" title="Vad">Vad</a></li>
+                    <li id="menuVem"><a href="/#Vem" title="Vem">Vem</a></li>
+                    <li id="menuSponsorer"><a href="/#Sponsorer" title="Sponsorer">Partners</a></li>
+                    <li id="menuKontakt"><a href="/#Kontakt" title="Kontakt">Kontakt</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="container-fluid">
+    <div class="span3 alert alert-info" id="msgBox"
+         style="top:10%;right:3%;position:fixed;z-index:100;display:none;"></div>
+</div>
+
 <style>
-	#myCarousel {}
+    #myCarousel {
+    }
 </style>
 
 <script>
-$(document).ready(function() {
-	$('#myCarousel').carousel();
-	
-	$('#scrollTop').click(function(){
-		$('html, body').animate({scrollTop:0}, 'slow');
-		return false;
-	});
-		
-	$('#btnContact').click(function(){
+    $(document).ready(function () {
+        $('#myCarousel').carousel();
 
-		var form = $('#contactForm');
-		
-		$.ajax({
-		  type:'post',
-		  data:form.serialize(),
-		  url:'/contact',
-		  success: function(msg){ 
-			showAlert("Success: " + msg);    
-		  },
-			error: function(msg){
-			showAlert("Error: " + msg);
-		  }
-		});   
-		
-		return false;
-	})
-});
+        $('#scrollTop').click(function () {
+            $('html, body').animate({scrollTop: 0}, 'slow');
+            return false;
+        });
+
+        $('#btnContact').click(function () {
+
+            var form = $('#contactForm');
+
+            $.ajax({
+                type: 'post',
+                data: form.serialize(),
+                url: '/contact',
+                success: function (msg) {
+                    showAlert("Success: " + msg);
+                },
+                error: function (msg) {
+                    showAlert("Error: " + msg);
+                }
+            });
+
+            return false;
+        })
+    });
 </script>
 
-<% i=1 %>
-<% sections.forEach( function( key,val ){ %>
-<% if (val && val.enabled=="1"){ %>
-<section id="<%=key%>" class="sec sec<%=i%> <%- val.cssClass %>">
-	<h2><%- val.heading %></h2>
-	<%- val.content %>
-	<% if (val.boolean) {%>yes<% } %>
+
+<section id="Intro" class="sec sec1 pull-center">
+    <h2></h2>
+
+    <div id="myCarousel" class="carousel slide pull-center fill">
+        <div class="carousel-inner">
+            <div class="active item">
+                <div>
+                    <img class="fill" src="/img/kidscraft.png"/>
+                </div>
+            </div>
+        </div>
+        <!--a class="carousel-control left" href="#myCarousel" data-slide="prev"><</a>
+      <a class="carousel-control right" href="#myCarousel" data-slide="next">></a-->
+    </div>
+
 </section>
 <hr>
-<% i++; %>
-<% } %>
-<% }); %>
+
+
+<section id="Vad" class="sec sec2 fill">
+    <h2></h2>
+
+    <div class="span6 pull-center">
+        <h1>Vad är Kidscraft?</h1>
+
+        <p>Är du mellan 8 och 15 år? Vi skapar, samarbetar och bygger i ett av de mest kreativa spel som finns just nu.
+            Kom och
+            spela Minecraft med 100 andra kids under 5 timmar på Stpln!</p>
+
+        <p>För att delta behöver du ett Minecraft-konto och en dator att spela på och vara mellan 9-15 år.
+            Välkommen!</p>
+
+        <h2>När?</h2>
+
+        <p>24. Augusti 2013, 13.00 - 18.00</p>
+
+        <h2>Var?</h2>
+
+        <p>Stapeln, Stapelbäddsgatan 3, 211 19 Malmö</p>
+
+        <h2>Hur?</h2>
+
+        <p>Anmäl dig här</p>
+
+        <div style="pull´center width:195px; text-align:center;">
+            <iframe src="http://www.eventbrite.com/countdown-widget?eid=577891489" frameborder="0" height="394"
+                    width="195" marginheight="0" marginwidth="0" scrolling="no" allowtransparency="true"></iframe>
+            <div style="font-family:Helvetica, Arial; font-size:10px; padding:5px 0 5px; margin:2px; width:195px; text-align:center;">
+                <a style="color:#ddd; text-decoration:none;" target="_blank" href="http://www.eventbrite.com/r/ecount">Event
+                    management</a><span style="color:#ddd;"> for </span><a style="color:#ddd; text-decoration:none;"
+                                                                           target="_blank"
+                                                                           href="http://www.eventbrite.com/event/577891489?ref=ecount">Kidscraft!</a>
+                <span style="color:#ddd;">powered by</span> <a style="color:#ddd; text-decoration:none;" target="_blank"
+                                                               href="http://www.eventbrite.com?ref=ecount">Eventbrite</a>
+            </div>
+        </div>
+
+</section>
+<hr>
+
+
+<section id="Vem" class="sec sec3 ">
+    <h2></h2>
+
+    <div class="container">
+        <div class="span12 pull-center">
+            <div class="span2 offset2">
+                <img class="thumbnail img-rounded"
+                     src='http://dl.dropboxusercontent.com/u/5925006/profile/peter_mini.png'/>
+
+                <h3>Peter Neubauer</h3>
+                Vi älskar att göra Malmö till ett nav för entreprenörskap, innovation och lärande. <a
+                    href='http://se.linkedin.com/in/neubauer' target='_blank'>Peter Neubauer</a>
+            </div>
+            <div class="span2">
+                <img class="thumbnail img-rounded" src='/img/Finnur.jpg'/>
+
+                <h3>Finnur</h3>
+                Barn och ungdomar är inte vår framtid, de är vår nutid. Alla måste förstå hur coola de redan är. <a
+                    href='http://finnur.se/'>Finnur.se</a>
+            </div>
+            <div class="span2">
+                <img class="thumbnail img-rounded" src='/img/marie.jpg'/>
+
+                <h3>Marie Neubauer</h3>
+                Service Design, PR och Customer Relations. <a
+                    href='http://se.linkedin.com/pub/marie-neubauer/26/b79/402' target='_blank'>Marie Neubauer</a>
+            </div>
+        </div>
+
+</section>
+<hr>
+
+
+<section id="Sponsorer" class="sec sec4 ">
+    <h2></h2>
+
+    <div class="container">
+        <div class="span12 pull-center">
+            <div class="span2  offset1">
+                <a href="http://www.spelkultur.nu" target="_blank"><img class="thumbnail pull-center"
+                     src='http://www.spelkultur.nu/wp-content/uploads/2013/02/Spelkultur_Logo_RGB_Wide_TransparentBG1.png'/></a>
+            </div>
+            <div class="span2">
+                <a href="http://stpln.se/" target="_blank"><img class="thumbnail pull-center" src='/img/stpln.png'/></a>
+            </div>
+            <div class="span2">
+                <a href="http://cityskane.se/malmo/" target="_blank"><img class="thumbnail pull-center" src='/img/city.png'/></a>
+            </div>
+            <div class="span2">
+                <a href="http://sydsvenskan.se" target="_blank"><img class="thumbnail pull-center" src='/img/sds.png'/></a>
+            </div>
+        </div>
+    </div>
+
+</section>
+<hr>
+
+
+<section id="Kontakt" class="sec sec5 pull-center fill">
+    <h2></h2>
+
+    <div class="container">
+        <h3 class="pull-center">Lämna ett meddelande till oss</h3>
+        <br>
+
+        <form class="form-horizontal span5 offset3" id="contactForm">
+            <div class="control-group">
+                <label class="control-label" for="inputName">Namn</label>
+
+                <div class="controls">
+                    <input type="text" class="input-xlarge" id="inputName" placeholder="Namn" name="name">
+                </div>
+            </div>
+            <div class="control-group">
+                <label class="control-label" for="inputEmail">Email</label>
+
+                <div class="controls">
+                    <input type="text" class="input-xlarge" id="inputEmail" placeholder="Email" name="email">
+                </div>
+            </div>
+            <div class="control-group">
+                <label class="control-label" for="inputComments">Meddelande</label>
+
+                <div class="controls">
+                    <textarea id="inputComments" class="input-xlarge" rows="6"
+                              placeholder="Dina kommentarer och frågor ..." name="message"></textarea>
+                </div>
+            </div>
+            <div class="control-group">
+
+                <div class="controls">
+                    <button type="button" class="btn btn-large btn-block btn-info" id="btnContact">Send</button>
+                </div>
+            </div>
+        </form>
+    </div>
+
+</section>
+<hr>
+
 
 <div data-spy="affix" data-offset-top="150" id="menuSticky" class="pull-right">
-	<ul>
-	<% if (typeof sections!="undefined") { %>
-	<% i=1 %>
-	<% sections.forEach( function( key,val ){ %>
-	<% if (val && val.enabled=="1") { %>
-	<li title="<%=key%>" href="/#<%=key%>"><a href="/#<%=key%>" class="sec<%=i%> smooth"></a></li>
-	<% i++ %>
-	<% } %>
-	<% })} %>
-	</ul>
+    <ul>
+        <li title="Intro" href="/#Intro"><a href="/#Intro" class="sec1 smooth"></a></li>
+        <li title="Vad" href="/#Vad"><a href="/#Vad" class="sec2 smooth"></a></li>
+        <li title="Vem" href="/#Vem"><a href="/#Vem" class="sec3 smooth"></a></li>
+        <li title="Sponsorer" href="/#Sponsorer"><a href="/#Sponsorer" class="sec4 smooth"></a></li>
+        <li title="Kontakt" href="/#Kontakt"><a href="/#Kontakt" class="sec5 smooth"></a></li>
+    </ul>
 </div>
 
 <br><br><br><br>
+
+<footer class="footer">
+    <p class="pull-right"><a href="#" id="scrollTop">scroll to top</a></p>
+</footer>
+
+<script src="/bootstrap/js/bootstrap-carousel.js"></script>
+<script src="/bootstrap/js/bootstrap-transition.js"></script>
+
+<script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-36671748-1']);
+    _gaq.push(['_trackPageview']);
+
+    (function () {
+        var ga = document.createElement('script');
+        ga.type = 'text/javascript';
+        ga.async = true;
+        ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+        var s = document.getElementsByTagName('script')[0];
+        s.parentNode.insertBefore(ga, s);
+    })();
+</script>
+
+<!--[if lt IE 7 ]>
+<script defer src="//ajax.googleapis.com/ajax/libs/chrome-frame/1.0.3/CFInstall.min.js"></script>
+<script defer>window.attachEvent('onload', function () {
+    CFInstall.check({mode: 'overlay'})
+})</script>
+<![endif]-->
+</body>
+</html>
