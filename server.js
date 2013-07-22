@@ -26,26 +26,24 @@ app.post('/contact', function (req, res) {
     var mailOptions = {
         from: req.body.email, // sender address
         to: "neubauer.peter@gmail.com", // list of receivers
-        subject: "Kidscraft message from "+req.body.email, // Subject line
+        subject: "Kidscraft message from " + req.body.email, // Subject line
         text: req.body.message, // plaintext body
         html: req.body.message // html body
     }
 
     // send mail with defined transport object
-    transport.sendMail(mailOptions, function(error, response){
-        if(error){
+    transport.sendMail(mailOptions, function (error, response) {
+        if (error) {
             console.log(error);
-        }else{
+        } else {
             console.log("Message sent: " + response.message);
         }
 
         // if you don't want to use this transport object anymore, uncomment following line
         //smtpTransport.close(); // shut down the connection pool, no more messages
     });
-    appDb.on('load', function () {
-        console.log('Form submitted.');
-        res.send('Thank you.');
-    });
+    console.log('Form submitted.');
+    res.send('Tack, vi hör av oss!');
 });
 
 /* The 404 Route (ALWAYS Keep this as the last route) */
