@@ -6,11 +6,10 @@
         "express": ">=3.x",
         "ejs": ">=0.6.x",
         "ejs-locals": ">=1.x",
-        "dirty": ">=0.9.6",
         "nodemailer": ">=0.x"
 
     },
     "engines": {
-        "node": "0.6.x"
+//        "node": "0.6.x"
     }
 }
