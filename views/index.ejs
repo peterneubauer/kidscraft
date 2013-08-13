@@ -78,11 +78,6 @@
         padding-top: 30px;
     }
 
-    #myCarousel img {
-        width: auto;
-        height: 225px;
-        max-height: 225px;
-    }
 </style>
 <link href="/bootstrap/css/bootstrap-responsive.css" rel="stylesheet">
 
@@ -222,7 +217,7 @@
                     <li id="menuIntro"><a href="/#Intro" title="Hem">Hem</a></li>
                     <li id="menuVad"><a href="/#Vad" title="Vad">Vad</a></li>
                     <li id="menuVem"><a href="/#Vem" title="Vem">Vem</a></li>
-                    <li id="menuSponsorer"><a href="/#Sponsorer" title="Sponsorer">Partners</a></li>
+                    <li id="menuSponsorer"><a href="/#Sponsorer" title="Sponsorer">Sponsorer</a></li>
                     <li id="menuKontakt"><a href="/#Kontakt" title="Kontakt">Kontakt</a></li>
                 </ul>
             </div>
@@ -242,8 +237,7 @@
 
 <script>
     $(document).ready(function () {
-        $('#myCarousel').carousel();
-
+        
         $('#scrollTop').click(function () {
             $('html, body').animate({scrollTop: 0}, 'slow');
             return false;
@@ -274,16 +268,8 @@
 <section id="Intro" class="sec sec1 pull-center">
     <h2></h2>
 
-    <div id="myCarousel" class="carousel slide pull-center fill">
-        <div class="carousel-inner">
-            <div class="active item">
-                <div>
+    <div class="slide pull-center fill">
                     <img class="fill" src="/img/kidscraft.png"/>
-                </div>
-            </div>
-        </div>
-        <!--a class="carousel-control left" href="#myCarousel" data-slide="prev"><</a>
-      <a class="carousel-control right" href="#myCarousel" data-slide="next">></a-->
     </div>
 
 </section>
