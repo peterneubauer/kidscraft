@@ -25,6 +25,7 @@ app.post('/contact', function (req, res) {
     // setup e-mail data with unicode symbols
     var mailOptions = {
         from: req.body.email, // sender address
+        replyTo: req.body.email,
         to: "neubauer.peter@gmail.com", // list of receivers
         subject: "Kidscraft message from " + req.body.email, // Subject line
         text: req.body.message, // plaintext body
