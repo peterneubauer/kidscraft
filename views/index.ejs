@@ -1,203 +1,203 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="utf-8">
-<title>Kidscraft - Minecraft party for kids 9-14 in Malmö</title>
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="description"
-      content="Kidscraft samlar barn i åldern 9-14 år för en spännande eftermiddag på stapeln den 24. Augusti 2013. Hej">
-<meta name="keywords"
-      content="one page,single page,bootstrap,mobile,app,apps,twitter bootstrap,node,node.js,portal,node starter,node template,twitter bootstrap,bootstrap,site,template,node blog,node app,site,cross,cross platform,web or mobile,responsive,boilerplate,html,javascript,css">
+    <meta charset="utf-8">
+    <title>Kidscraft - Minecraft party for kids 9-14 in Malmö</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description"
+          content="Kidscraft samlar barn i åldern 9-14 år för en spännande eftermiddag på stapeln den 24. Augusti 2013. Hej">
+    <meta name="keywords"
+          content="one page,single page,bootstrap,mobile,app,apps,twitter bootstrap,node,node.js,portal,node starter,node template,twitter bootstrap,bootstrap,site,template,node blog,node app,site,cross,cross platform,web or mobile,responsive,boilerplate,html,javascript,css">
 
-<script src="/codemirror/lib/codemirror.js"></script>
-<link rel="stylesheet" href="/codemirror/lib/codemirror.css">
-<script src="/codemirror/mode/css/css.js"></script>
-<script src="/codemirror/mode/javascript/javascript.js"></script>
-<script src="/codemirror/mode/xml/xml.js"></script>
-<script src="/codemirror/mode/htmlmixed/htmlmixed.js"></script>
+    <script src="/codemirror/lib/codemirror.js"></script>
+    <link rel="stylesheet" href="/codemirror/lib/codemirror.css">
+    <script src="/codemirror/mode/css/css.js"></script>
+    <script src="/codemirror/mode/javascript/javascript.js"></script>
+    <script src="/codemirror/mode/xml/xml.js"></script>
+    <script src="/codemirror/mode/htmlmixed/htmlmixed.js"></script>
 
-<link href="/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-<style type="text/css">
-    body {
-        padding-top: 0px;
-        padding-bottom: 0px;
-    }
-
-    .footer {
-        position: fixed;
-        z-index: 10;
-        bottom: 5px;
-        right: 10px;
-    }
-
-    #menuSticky {
-        z-index: 5;
-        *position: fixed;
-        *top: 99px;
-        right: 16px;
-        padding: 7px;
-        padding-top: 12px;
-    }
-
-    #menuSticky ul {
-        list-style: none;
-        margin: 0;
-    }
-
-    #menuSticky li {
-        position: relative;
-        background: none repeat scroll 0 0 #cccccc;
-        border: 1px solid #aaaaaa;
-        border-radius: 15px 15px 15px 15px;
-        cursor: pointer;
-        height: 9px;
-        margin: 10px 10px 0px 0px;
-        width: 18px;
-        vertical-align: bottom;
-    }
-
-    #menuSticky li.active {
-        background-color: #ffffff;
-        background-image: -moz-linear-gradient(center top, #FFFFFF, #EEEEEE);
-        background-repeat: repeat-x;
-    }
-
-    #menuSticky li:hover {
-        background: none repeat scroll 0 0 #EEEEEE;
-    }
-
-    #menuSticky a {
-        outline: 0;
-        vertical-align: top;
-        margin: 0px 0px 0px 25px;
-        position: relative;
-        top: -5px;
-    }
-
-    section {
-        padding-top: 30px;
-    }
-
-</style>
-<link href="/bootstrap/css/bootstrap-responsive.css" rel="stylesheet">
-
-<!--[if lt IE 9]>
-<script src="//html5shim.googlecode.com/svn/trunk/html5.js"></script>
-<![endif]-->
-
-<link rel="shortcut icon" href="/bootstrap/img/favicon.ico">
-<link rel="apple-touch-icon" href="/bootstrap/img/apple-touch-icon.png">
-<link rel="apple-touch-icon" sizes="72x72" href="/bootstrap/img/apple-touch-icon-72x72.png">
-<link rel="apple-touch-icon" sizes="114x114" href="/bootstrap/img/apple-touch-icon-114x114.png">
-
-<!-- load jquery from google CDN, with a protocol relative URL; otherwise local if offline -->
-<script src="//ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
-<script>window.jQuery || document.write('<script src="bootstrap/js/jquery-1.7.1.min.js"><\/script>')</script>
-<script src="/bootstrap/js/bootstrap.min.js"></script>
-<!--<script type="text/javascript" src="http://plugins.in1.com/scripts/socialist.js"></script>-->
-<script>
-    function unspace(str) {
-        if (str == null)
-            return;
-
-        return str.replace("!", "").toLowercase().replace(" ", "");
-    }
-
-    $(document).ready(function () {
-
-        $('#scrollTop').click(function () {
-            $('html, body').animate({scrollTop: 0}, 'slow');
-            return false;
-        });
-
-        $('[title]').tooltip();
-
-        /* dot nav */
-        redrawDotNav();
-
-        $(window).bind('scroll', function (e) {
-            //parallaxScroll();
-            redrawDotNav();
-        });
-
-        function redrawDotNav() {
-
-            var topNavHeight = 61;
-
-            $('#menuSticky li a').removeClass('active').parent('li').removeClass('active');
-
-            var numDivs = $('section.sec').length;
-            $('section.sec').each(function (i, item) {
-                var ele = $(item), nextTop;
-
-                if ($('section.sec' + (i + 2)).offset() !== null) {
-                    nextTop = $('section.sec' + (i + 2)).offset().top;
-                }
-                else {
-                    nextTop = $(document).height();
-                }
-
-                //console.log("sec"+(i+1));
-
-                if (ele.offset() !== null) {
-                    thisTop = ele.offset().top - ((nextTop - ele.offset().top) / numDivs);
-                }
-                else {
-                    thisTop = 0;
-                }
-
-                var docTop = $(document).scrollTop() + topNavHeight;
-
-                if (docTop >= thisTop && (docTop < nextTop)) {
-                    $('#menuSticky a.sec' + (i + 1)).parent('li').addClass('active');
-                }
-            });
-
+    <link href="/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <style type="text/css">
+        body {
+            padding-top: 0px;
+            padding-bottom: 0px;
         }
 
-        /* end dot nav */
+        .footer {
+            position: fixed;
+            z-index: 10;
+            bottom: 5px;
+            right: 10px;
+        }
 
-        $('#section-menu li:first').addClass("active");
-        $('#section-menu li a, #admin-menu li a, .smooth, #menuSticky li').click(function () {
-            var id = $(this).attr("href").replace("/", ""),
-                    posi,
-                    ele,
-                    padding = parseInt($('body').css('padding-top'));
+        #menuSticky {
+            z-index: 5;
+            *position: fixed;
+            *top: 99px;
+            right: 16px;
+            padding: 7px;
+            padding-top: 12px;
+        }
 
-            ele = $(id);
-            posi = ($(ele).offset() || 0).top - padding;
+        #menuSticky ul {
+            list-style: none;
+            margin: 0;
+        }
 
-            $('html, body').animate({scrollTop: posi}, 'slow');
+        #menuSticky li {
+            position: relative;
+            background: none repeat scroll 0 0 #cccccc;
+            border: 1px solid #aaaaaa;
+            border-radius: 15px 15px 15px 15px;
+            cursor: pointer;
+            height: 9px;
+            margin: 10px 10px 0px 0px;
+            width: 18px;
+            vertical-align: bottom;
+        }
+
+        #menuSticky li.active {
+            background-color: #ffffff;
+            background-image: -moz-linear-gradient(center top, #FFFFFF, #EEEEEE);
+            background-repeat: repeat-x;
+        }
+
+        #menuSticky li:hover {
+            background: none repeat scroll 0 0 #EEEEEE;
+        }
+
+        #menuSticky a {
+            outline: 0;
+            vertical-align: top;
+            margin: 0px 0px 0px 25px;
+            position: relative;
+            top: -5px;
+        }
+
+        section {
+            padding-top: 30px;
+        }
+
+    </style>
+    <link href="/bootstrap/css/bootstrap-responsive.css" rel="stylesheet">
+
+    <!--[if lt IE 9]>
+    <script src="//html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+
+    <link rel="shortcut icon" href="/bootstrap/img/favicon.ico">
+    <link rel="apple-touch-icon" href="/bootstrap/img/apple-touch-icon.png">
+    <link rel="apple-touch-icon" sizes="72x72" href="/bootstrap/img/apple-touch-icon-72x72.png">
+    <link rel="apple-touch-icon" sizes="114x114" href="/bootstrap/img/apple-touch-icon-114x114.png">
+
+    <!-- load jquery from google CDN, with a protocol relative URL; otherwise local if offline -->
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+    <script>window.jQuery || document.write('<script src="bootstrap/js/jquery-1.7.1.min.js"><\/script>')</script>
+    <script src="/bootstrap/js/bootstrap.min.js"></script>
+    <!--<script type="text/javascript" src="http://plugins.in1.com/scripts/socialist.js"></script>-->
+    <script>
+        function unspace(str) {
+            if (str == null)
+                return;
+
+            return str.replace("!", "").toLowercase().replace(" ", "");
+        }
+
+        $(document).ready(function () {
+
+            $('#scrollTop').click(function () {
+                $('html, body').animate({scrollTop: 0}, 'slow');
+                return false;
+            });
+
+            $('[title]').tooltip();
+
+            /* dot nav */
+            redrawDotNav();
+
+            $(window).bind('scroll', function (e) {
+                //parallaxScroll();
+                redrawDotNav();
+            });
+
+            function redrawDotNav() {
+
+                var topNavHeight = 61;
+
+                $('#menuSticky li a').removeClass('active').parent('li').removeClass('active');
+
+                var numDivs = $('section.sec').length;
+                $('section.sec').each(function (i, item) {
+                    var ele = $(item), nextTop;
+
+                    if ($('section.sec' + (i + 2)).offset() !== null) {
+                        nextTop = $('section.sec' + (i + 2)).offset().top;
+                    }
+                    else {
+                        nextTop = $(document).height();
+                    }
+
+                    //console.log("sec"+(i+1));
+
+                    if (ele.offset() !== null) {
+                        thisTop = ele.offset().top - ((nextTop - ele.offset().top) / numDivs);
+                    }
+                    else {
+                        thisTop = 0;
+                    }
+
+                    var docTop = $(document).scrollTop() + topNavHeight;
+
+                    if (docTop >= thisTop && (docTop < nextTop)) {
+                        $('#menuSticky a.sec' + (i + 1)).parent('li').addClass('active');
+                    }
+                });
+
+            }
+
+            /* end dot nav */
+
+            $('#section-menu li:first').addClass("active");
+            $('#section-menu li a, #admin-menu li a, .smooth, #menuSticky li').click(function () {
+                var id = $(this).attr("href").replace("/", ""),
+                        posi,
+                        ele,
+                        padding = parseInt($('body').css('padding-top'));
+
+                ele = $(id);
+                posi = ($(ele).offset() || 0).top - padding;
+
+                $('html, body').animate({scrollTop: posi}, 'slow');
+
+                return false;
+            });
+
+            $('#main-menu li a').click(function () {
+                $('#main-menu li').removeClass('active');
+                $(this).parent().addClass('active');
+            });
+
+            var test = 'dummy'
+
+        });
+
+        /* alert handling */
+
+        function showAlert(msg) {
+            if (typeof msg == "undefined")
+                return;
+
+            console.log("alerting:" + msg);
+
+            $('#msgBox').html(msg + '<a class="close" href="#">&times;</a>').fadeIn().delay(3500).fadeOut('slow');
 
             return false;
-        });
-
-        $('#main-menu li a').click(function () {
-            $('#main-menu li').removeClass('active');
-            $(this).parent().addClass('active');
-        });
-
-        var test = 'dummy'
-
-    });
-
-    /* alert handling */
-
-    function showAlert(msg) {
-        if (typeof msg == "undefined")
-            return;
-
-        console.log("alerting:" + msg);
-
-        $('#msgBox').html(msg + '<a class="close" href="#">&times;</a>').fadeIn().delay(3500).fadeOut('slow');
-
-        return false;
-    }
+        }
 
 
-    /* end alert handling */
+        /* end alert handling */
 
-</script>
+    </script>
 </head>
 
 <body>
@@ -237,7 +237,7 @@
 
 <script>
     $(document).ready(function () {
-        
+
         $('#scrollTop').click(function () {
             $('html, body').animate({scrollTop: 0}, 'slow');
             return false;
@@ -269,7 +269,7 @@
     <h2></h2>
 
     <div class="slide pull-center fill">
-                    <img class="fill" src="/img/kidscraft.png"/>
+        <img class="fill" src="/img/kidscraft.png"/>
     </div>
 
 </section>
@@ -450,7 +450,7 @@
                         href='http://se.linkedin.com/in/magnusrobertsson/' target='_blank'>LinkedIn</a>
             </div>
             <div class="span2">
-                
+
             </div>
             <div class="span2">
             </div>
@@ -479,7 +479,8 @@
                                                                           src='/img/city.png'/></a>
             </div>
             <div class="span2">
-                <a href="http://spelkultur.nu/" target="_blank"><img class="thumbnail pull-center" src='http://www.spelkultur.nu/wp-content/uploads/2013/02/Spelkultur_Logo_RGB_Wide_TransparentBG1.png'/></a>
+                <a href="http://spelkultur.nu/" target="_blank"><img class="thumbnail pull-center"
+                                                                     src='http://www.spelkultur.nu/wp-content/uploads/2013/02/Spelkultur_Logo_RGB_Wide_TransparentBG1.png'/></a>
             </div>
         </div>
     </div>
@@ -495,6 +496,10 @@
             </div>
             <div class="span2">
                 <a href="http://sydsvenskan.se" target="_blank"><img class="thumbnail pull-center" src='/img/sds.png'/></a>
+            </div>
+            <div class="span2">
+                <a href="http://minecraft.net" target="_blank"><img class="thumbnail pull-center"
+                                                                    src='http://mojang.com/wp-content/uploads/2012/02/mojang.png'/></a>
             </div>
         </div>
     </div>
