@@ -1,0 +1,759 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>Kidscraft - Minecraft party for kids 9-14 in Malmö</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description"
+          content="Kidscraft samlar barn i åldern 9-14 år för en spännande eftermiddag på stapeln den 24. Augusti 2013. Hej">
+    <meta name="keywords"
+          content="one page,single page,bootstrap,mobile,app,apps,twitter bootstrap,node,node.js,portal,node starter,node template,twitter bootstrap,bootstrap,site,template,node blog,node app,site,cross,cross platform,web or mobile,responsive,boilerplate,html,javascript,css">
+
+    <style type="text/css">
+        body {
+            padding-top: 0px;
+            padding-bottom: 0px;
+        }
+
+        .footer {
+            position: fixed;
+            z-index: 10;
+            bottom: 5px;
+            right: 10px;
+        }
+
+        #menuSticky {
+            z-index: 5;
+            *position: fixed;
+            *top: 99px;
+            right: 16px;
+            padding: 7px;
+            padding-top: 12px;
+        }
+
+        #menuSticky ul {
+            list-style: none;
+            margin: 0;
+        }
+
+        #menuSticky li {
+            position: relative;
+            background: none repeat scroll 0 0 #cccccc;
+            border: 1px solid #aaaaaa;
+            border-radius: 15px 15px 15px 15px;
+            cursor: pointer;
+            height: 9px;
+            margin: 10px 10px 0px 0px;
+            width: 18px;
+            vertical-align: bottom;
+        }
+
+        #menuSticky li.active {
+            background-color: #ffffff;
+            background-image: -moz-linear-gradient(center top, #FFFFFF, #EEEEEE);
+            background-repeat: repeat-x;
+        }
+
+        #menuSticky li:hover {
+            background: none repeat scroll 0 0 #EEEEEE;
+        }
+
+        #menuSticky a {
+            outline: 0;
+            vertical-align: top;
+            margin: 0px 0px 0px 25px;
+            position: relative;
+            top: -5px;
+        }
+
+        section {
+            padding-top: 30px;
+        }
+
+    </style>
+
+    <script src="//html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <script src="http://code.jquery.com/jquery-1.10.1.min.js"></script>
+    <script defer src="//ajax.googleapis.com/ajax/libs/chrome-frame/1.0.3/CFInstall.min.js"></script>
+    <script src="bootstrap/js/bootstrap.js"></script>
+    <script src="bootstrap/js/bootstrap-carousel.js"></script>
+    <script src="bootstrap/js/bootstrap-transition.js"></script>
+    <link href="bootstrap/css/bootstrap.css" rel="stylesheet">
+    <link href="bootstrap/css/bootstrap-responsive.css" rel="stylesheet">
+
+    <script>
+        function unspace(str) {
+            if (str == null)
+                return;
+
+            return str.replace("!", "").toLowercase().replace(" ", "");
+        }
+
+        $(document).ready(function () {
+
+            $('#scrollTop').click(function () {
+                $('html, body').animate({scrollTop: 0}, 'slow');
+                return false;
+            });
+
+            $('[title]').tooltip();
+
+            /* dot nav */
+            redrawDotNav();
+
+            $(window).bind('scroll', function (e) {
+//                parallaxScroll();
+                redrawDotNav();
+            });
+
+            function redrawDotNav() {
+
+                var topNavHeight = 61;
+
+                $('#menuSticky li a').removeClass('active').parent('li').removeClass('active');
+
+                var numDivs = $('section.sec').length;
+                $('section.sec').each(function (i, item) {
+                    var ele = $(item), nextTop;
+                    console.log("sec", ele);
+
+                    var sec_2 = $('section.sec' + (i + 2));
+                    console.log("sec_2", sec_2.offset());
+                    if (sec_2.offset()) {
+                        nextTop = sec_2.offset().top;
+                    }
+                    else {
+                        nextTop = $(document).height();
+                    }
+
+
+                    if (ele.offset() !== null) {
+                        thisTop = ele.offset().top - ((nextTop - ele.offset().top) / numDivs);
+                    }
+                    else {
+                        thisTop = 0;
+                    }
+
+                    var docTop = $(document).scrollTop() + topNavHeight;
+
+                    if (docTop >= thisTop && (docTop < nextTop)) {
+                        $('#menuSticky a.sec' + (i + 1)).parent('li').addClass('active');
+                    }
+                });
+
+            }
+
+            /* end dot nav */
+
+            $('#section-menu li:first').addClass("active");
+            $('#section-menu li a, #admin-menu li a, .smooth, #menuSticky li').click(function () {
+                var id = $(this).attr("href").replace("/", ""),
+                        posi,
+                        ele,
+                        padding = parseInt($('body').css('padding-top'));
+
+                ele = $(id);
+                posi = ($(ele).offset() || 0).top - padding;
+
+                $('html, body').animate({scrollTop: posi}, 'slow');
+
+                return false;
+            });
+
+            $('#main-menu li a').click(function () {
+                $('#main-menu li').removeClass('active');
+                $(this).parent().addClass('active');
+            });
+
+            var test = 'dummy'
+
+        });
+
+        /* alert handling */
+
+        function showAlert(msg) {
+            if (typeof msg == "undefined")
+                return;
+
+            console.log("alerting:" + msg);
+
+            $('#msgBox').html(msg + '<a class="close" href="#">&times;</a>').fadeIn().delay(3500).fadeOut('slow');
+
+            return false;
+        }
+
+
+        /* end alert handling */
+
+    </script>
+</head>
+
+<body>
+
+<div class="navbar navbar-fixed-top">
+    <div class="navbar-inner">
+        <div class="container-fluid">
+            <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </a>
+            <a class="brand" href="/">Kidscraft</a>
+
+            <div class="nav-collapse" id="main-menu">
+                <ul class="nav" id="section-menu">
+                    <li id="menuIntro"><a href="/#Intro" title="Hem">Hem</a></li>
+                    <li id="menuVad"><a href="/#Vad" title="Vad">Vad</a></li>
+                    <li id="menuOne"><a href="/#one" title="One">Kidscraft #1</a></li>
+                    <li id="menuVem"><a href="/#Vem" title="Vem">Vem</a></li>
+                    <li id="menuSponsorer"><a href="/#Sponsorer" title="Sponsorer">Sponsorer</a></li>
+                    <li id="menuKontakt"><a href="/#Kontakt" title="Kontakt">Kontakt</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="container-fluid">
+    <div class="span3 alert alert-info" id="msgBox"
+         style="top:10%;right:3%;position:fixed;z-index:100;display:none;"></div>
+</div>
+
+<style>
+    #myCarousel {
+    }
+</style>
+
+<script>
+    $(document).ready(function () {
+
+        $('#scrollTop').click(function () {
+            $('html, body').animate({scrollTop: 0}, 'slow');
+            return false;
+        });
+
+        $('#btnContact').click(function () {
+
+            var form = $('#contactForm');
+
+            $.ajax({
+                type: 'post',
+                data: form.serialize(),
+                url: '/contact',
+                success: function (msg) {
+                    showAlert("Success: " + msg);
+                },
+                error: function (msg) {
+                    showAlert("Error: " + msg);
+                }
+            });
+
+            return false;
+        })
+    });
+</script>
+
+
+<section id="Intro" class="sec sec1 pull-center">
+    <div class="slide pull-center fill">
+        <img class="fill" src="img/kidscraft.png"/>
+    </div>
+
+</section>
+<hr>
+
+
+<section id="Vad" class="sec sec2 fill">
+    <div class="container">
+
+        <div class="span6 pull-center" style="text-align: left;">
+            <h1>Vad är Kidscraft?</h1>
+
+            <p>Den 8:e Februari 2013 smäller det igen! Kidscraft "Ice" är LAN:et där 100 av Malmös craftigaste kids mellan 8 - 15 år
+                träffas
+                för att skapa nya världar tillsammans i ett av världens bästa spel. Kidscraft kommer att hållas på Stpln
+                i
+                Malmö. Eventet är helt gratis men kräver att du registrerar dig som medlem i var LAN-förening via en anmälningsavgift om 40 kronor
+                (detaljer följer), 
+                tar med dig egen dator och
+                Minecraft-användare (https://minecraft.net/store). Observera att det finns ett begränsat antal platser.</p>
+            <p>
+                Vi öppnar kön till Kidscraft "Ice" kl. 14.00 den 8. December 2013 på   
+            </p>
+
+            <p>
+                KOM IHÅG: Det är viktigt att du registrerar dig på Minecraft redan innan Kidscraft, det kan du göra här:
+                <a href="https://minecraft.net/store">https://minecraft.net/store</a>.
+            </p>
+
+            <h1>Varför arrangerar vi Kidscraft?</h1>
+
+            <p>Spelkultur är den snabbast växande formen av kulturutövande i Sverige. Enligt Statens medieråd spelar
+                över 80
+                procent av alla svenska barn och unga någon form av dator- eller tv-spel. Trots detta finns det extremt
+                få
+                LAN-event som riktar sig till just barn. Tillfällen där unga gamers skulle kunna få möjlighet att träffa
+                andra datorintresserade i sin egen ålder. Genom Kidscraft vill vi skapa en sådan mötesplats. En trygg
+                LAN-miljö för barn där kreativet och skapande samarbeten kan ligga i fokus.
+            </p>
+
+            <p>För personer som spelar datorspel är det ganska uppenbart hur kul och utvecklande deras spelande kan
+                vara.
+                Men tyvärr är inte synen på datorspelande lika okomplicerad. Datorspel har fått ett oförtjänt dåligt
+                rykte i
+                media och betraktas fortfarande med föräldravärldens skepsis. I den egenskapen är Kidscraft är ett
+                pioniärprojekt. Ett projekt som går ut på att visa att spel kan användas för att främja kreativitet och
+                samarbete. Som kan uppmärksamma föräldrar, kritiker och beslutsfattare om behovet av alternativa
+                mötesplatser för barn och vikten av att utgå ifrån ungas egna intressen för att stimulera informella
+                demokrati- och läroprocesser.
+            </p>
+
+            <h1> Varför Minecraft?</h1>
+
+            <p>Minecraft var ett världsfenomen redan innan spelet hade lanserats. Den öppna spelvärlden i kombination
+                med
+                ett
+                enkelt system för att skapa, utvecklas och uppleva äventyr, erbjuder spelare möjligheten att uttrycka
+                sig
+                kreativt samtidigt som de kan ha roligt och skapa tillsammans med andra. En kombination som utan tvekan
+                gjort
+                Minecraft till ett av världens mest populära spel.</p>
+
+            <p>Minecraft har till skillnad från många andra spel en låg åldersgräns, är lätt att sätta sig in i och ett
+                upplägg
+                som uppmuntrar till samarbete och kreativitet. Faktorer som gör att Minecraft lämpar sig väldigt väl för
+                att
+                arbeta med barn och unga. Det är också ett exemplariskt verktyg för att visa på informella
+                läroprocesser.
+            </p>
+
+            <h2>
+                Glöm inte att ta med
+            </h2>
+            <ul>
+
+                <li>din egen <b>dator</b> (Har du inte en egen dator? Hör av dig så fort du kan genom att mejla oss!)
+                </li>
+                <li>din <b>Minecraft-login</b></li>
+                <li>gärna en egen <b>förgreningskontakt</b> om du har en sån hemma!</li>
+                <li>om du har, en Ethernet <b>nätsladd</b> så att du får snabbara nätverk än om du surfar trådlöst.</li>
+            </ul>
+
+            <h2>Regler</h2>
+            <ul>
+                <li>Inget griefande</li>
+                <li>Spela bara minecraft, inga andra internet-spel</li>
+                <li>Använd bara de världar som finns uppsatta, inte dina egna, eftersom annars du tar med dig världen
+                    när du
+                    går.
+                </li>
+            </ul>
+
+            <p>Om du har tips, funeringar eller önskemål om server setups (till exempel - vill du spela på en
+                ScriptCraft
+                Server?),
+                byggprojekt och andra ideer låt oss <a href="#Kontakt">veta</a> nedan. Det skall bli superkul att ha dig
+                med!
+            </p>
+        </div>
+    </div>
+
+</section>
+<section id="one" class="sec sec2 fill">
+    <div class="container">
+
+        <div class="span6 pull-center">
+            <h1>Kidscraft#1</h1>
+
+            <ul class="thumbnails">
+                <li class="thumbnail">
+                    <a href="img/24_08_2013/mr_3.jpg" target="_blank"><img src="img/24_08_2013/mr_3.jpg"
+                                                                           alt=""/></a>
+                    <h4>Gänget</h4>
+                </li>
+            </ul>
+
+            <p>24. Augusti 2013, 13.00 - 18.00</p>
+
+            <p>Stapeln, Stapelbäddsgatan 3, 211 19 Malmö</p>
+
+            <p>100 barn 8-14 år, 20% tjejer, 100% nöjda</p>
+
+            <h2>Kidscraft #1 världar</h2>
+
+            <p>Klicka <a class="btn" href="https://dl.dropboxusercontent.com/u/5925006/kidscraft%231/worlds.zip">här</a>
+                för
+                att ladda
+                ner alla världar som barnen skapade med Minecraft 1.6.2. Zippa upp de i din minecraft folder under
+                /saves/,
+                se även <a href="http://www.youtube.com/watch?v=ZSS4gPmLR8Y">denna video</a> om hur man gör.
+            </p>
+
+            <h2>Några bilder</h2>
+
+            <div>
+                <ul class="thumbnails">
+                    <li class="span2">
+                        <div class="thumbnail">
+                            <a href="img/24_08_2013/pn_1.jpg" target="_blank"><img src="img/24_08_2013/pn_1.jpg"
+                                                                                   alt=""></a>
+                            <h4>Karl Neubauer, 9 och Kevin Taverner 9</h4>
+                        </div>
+                    </li>
+                    <li class="span2">
+                        <div class="thumbnail">
+                            <a href="img/24_08_2013/pn_2.jpg" target="_blank"><img src="img/24_08_2013/pn_2.jpg" alt="">
+                            </a>
+                            <h4>Fullt spelande</h4>
+                        </div>
+                    </li>
+                    <li class="span2">
+                        <div class="thumbnail">
+                            <a href="img/24_08_2013/pn_3.jpg" target="_blank"><img src="img/24_08_2013/pn_3.jpg"
+                                                                                   alt=""></a>
+                            <h4>Visning av egna byggen på scen</h4>
+                        </div>
+                    </li>
+                    <li class="span2">
+                        <div class="thumbnail">
+                            <a href="img/24_08_2013/pn_4.jpg" target="_blank"><img src="img/24_08_2013/pn_4.jpg" alt="">
+                            </a>
+                            <h4>På scen med mic</h4>
+                        </div>
+                    </li>
+                    <li class="span2">
+                        <div class="thumbnail">
+                            <a href="img/24_08_2013/pn_5.jpg" target="_blank"><img src="img/24_08_2013/pn_5.jpg"
+                                                                                   alt=""></a>
+                            <h4>Konserthallen, STPLN</h4>
+                        </div>
+                    </li>
+                    <li class="span2">
+                        <div class="thumbnail">
+                            <a href="img/24_08_2013/mr_1.jpg" target="_blank"><img src="img/24_08_2013/mr_1.jpg"
+                                                                                   alt=""/></a>
+                            <h4>Sticker parade från Malmö</h4>
+                        </div>
+                    </li>
+                    <li class="span2">
+                        <div class="thumbnail">
+                            <a href="img/24_08_2013/mr_2.jpg" target="_blank"><img src="img/24_08_2013/mr_2.jpg"
+                                                                                   alt=""/></a>
+                            <h4>Servrarna</h4>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+            <h2>Röster om Kidscraft#1 från barnen</h2>
+            <blockquote><p>Det har varit jätteroligt idag, det bästa var när alla fick visa upp vad de byggt</p>
+                <small>Elias 10 år</small>
+            </blockquote>
+            <blockquote><p>Hej! Visste inte om detta förrän det var för sent att anmäla sig. Hoppas det blir fler
+                gånger.
+                Blir det fler gånger?</p>
+                <small>Måns 11 år</small>
+            </blockquote>
+            <blockquote><p>Det var jätte kul hoppas inte att det var sista gången</p>
+                <small></small>
+            </blockquote>
+            <blockquote><p>Det fanns ett par stycken som försökte tända eld på andras hus i spelet, men de blev
+                tillsagda av
+                arrangörerna direkt.</p>
+                <small></small>
+            </blockquote>
+            <blockquote><p>Hej, Tack för ett fantastiskt event. Vi körde från Hästveda för att vara med och vi ångrar
+                inget.
+                Många tack för en super eftermiddag med Minecraft!</p>
+                <small>Henrik och Neo</small>
+            </blockquote>
+            <blockquote><p>ack för en jätte bra dag! Mina två barn tycker det var den bästa dagen på länge! Hoppas att
+                ni
+                kan få till ett event igen.</p>
+                <small>Martin</small>
+            </blockquote>
+            <blockquote><p>Challe 9 år Hanna 5 år ... det är var coolt mamma! Tack för att vi kunde kika in i em -
+                härligt
+                jobbat alla engagerade!</p>
+                <small>Charlotte</small>
+            </blockquote>
+
+
+            <h2>Kidscraft#1 i Media</h2>
+            <blockquote class="twitter-tweet" data-partner="tweetdeck"><p>Hundra barn samlades på spelträff i <a
+                    href="https://twitter.com/search?q=%23Malm%C3%B6&amp;src=hash">#Malmö</a>. <a
+                    href="https://twitter.com/search?q=%23kidscraft&amp;src=hash">#kidscraft</a> <a
+                    href="https://twitter.com/search?q=%23stpln&amp;src=hash">#stpln</a> <a
+                    href="http://t.co/O3KRvm56or">http://t.co/O3KRvm56or</a>
+            </p>&mdash; Sydsvenskan (@sydsvenskan) <a
+                    href="https://twitter.com/sydsvenskan/statuses/371315564859654144">August
+                24, 2013</a></blockquote>
+            <script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
+            <blockquote class="twitter-tweet"><p>Sydsvenskan: Skånes första Minecraft-LAN i Malmö idag, <a
+                    href="http://t.co/xyz8PKXlC2">http://t.co/xyz8PKXlC2</a> <a
+                    href="https://twitter.com/search?q=%23kidscraft&amp;src=hash">#kidscraft</a> <a
+                    href="https://twitter.com/search?q=%23stpln&amp;src=hash">#stpln</a></p>&mdash; Stefan Pålsson
+                (@stefan_palsson) <a href="https://twitter.com/stefan_palsson/statuses/371388514694627328">August 24,
+                    2013</a></blockquote>
+            <iframe src="//instagram.com/p/dZs2-3H_VT/embed/" width="612" height="710" frameborder="0" scrolling="no"
+                    allowtransparency="true"></iframe>
+            <blockquote class="twitter-tweet" data-partner="tweetdeck"><p>Vi har nu stängt av musiken. Alla barn vill på
+                scen med sina alster live och med mic. Fantastiskt! <a
+                        href="https://twitter.com/search?q=%23FB&amp;src=hash">#FB</a> <a
+                        href="https://twitter.com/search?q=%23Kidscraft&amp;src=hash">#Kidscraft</a> <a
+                        href="http://t.co/hR6RcDkf7U">pic.twitter.com/hR6RcDkf7U</a></p>&mdash; Peter Neubauer
+                (@peterneubauer) <a href="https://twitter.com/peterneubauer/statuses/371297390785216512">August 24,
+                    2013</a>
+            </blockquote>
+            <blockquote class="twitter-tweet"><p>Kids queuing to demo their creations on stage at kidscraft.se in Malmö!
+                Great success! <a href="http://t.co/yI5e8nt5cN">http://t.co/yI5e8nt5cN</a></p>&mdash; Craig Taverner
+                (@craigtaverner) <a href="https://twitter.com/craigtaverner/statuses/371338908799598592">August 24,
+                    2013</a>
+            </blockquote>
+            <iframe src="//instagram.com/p/dZ-4aQD3KV/embed/" width="612" height="710" frameborder="0" scrolling="no"
+                    allowtransparency="true"></iframe>
+            <blockquote class="twitter-tweet" data-partner="tweetdeck"><p>Hugo 10 år, Wille 10 år och Jonatan 11år
+                byggde en
+                Stormtrooper! <a href="https://twitter.com/search?q=%23kidscraft&amp;src=hash">#kidscraft</a> <a
+                        href="https://twitter.com/search?q=%23minecraft&amp;src=hash">#minecraft</a> @ STPLN <a
+                        href="http://t.co/fFwjeHfRdJ">http://t.co/fFwjeHfRdJ</a></p>&mdash; Chris Jonasson (@Chrishka)
+                <a
+                        href="https://twitter.com/Chrishka/statuses/371294411562708992">August 24, 2013</a></blockquote>
+            <iframe src="//instagram.com/p/dZq0z9H_RL/embed/" width="612" height="710" frameborder="0" scrolling="no"
+                    allowtransparency="true"></iframe>
+            <blockquote class="twitter-tweet" data-partner="tweetdeck"><p>the <a
+                    href="https://twitter.com/search?q=%23Kidscraft&amp;src=hash">#Kidscraft</a> sign in the slime
+                world,
+                thanks for the swag <a href="https://twitter.com/jeb">@jeb</a>! <a
+                        href="https://twitter.com/search?q=%23fb&amp;src=hash">#fb</a> <a
+                        href="https://twitter.com/search?q=%23in&amp;src=hash">#in</a>  <a
+                        href="http://t.co/i2zE7HkOsu">pic.twitter.com/i2zE7HkOsu</a>
+            </p>&mdash; Peter Neubauer (@peterneubauer) <a
+                    href="https://twitter.com/peterneubauer/statuses/371291213317820416">August 24, 2013</a>
+            </blockquote>
+            <blockquote class="twitter-tweet" data-partner="tweetdeck"><p>Har nog aldrig varit med om så lugnt ställe
+                som
+                innehöll 90 ungdomar i åldern 8-14 <a href="https://twitter.com/search?q=%23Kidscraft&amp;src=hash">#Kidscraft</a>
+                helt underbart. vilken koncentration</p>&mdash; Finnur Sverrisson (@finnur) <a
+                    href="https://twitter.com/finnur/statuses/371289146855555072">August 24, 2013</a></blockquote>
+            <blockquote class="twitter-tweet"><p>tack <a href="https://twitter.com/Kvallsposten">@kvallsposten</a> för
+                en
+                trevlig artikel om lördagens <a
+                        href="https://twitter.com/search?q=%23Kidscraft&amp;src=hash">#Kidscraft</a>!
+                <a href="https://twitter.com/search?q=%23in&amp;src=hash">#in</a> <a
+                        href="https://twitter.com/search?q=%23FB&amp;src=hash">#FB</a>  <a
+                        href="http://t.co/62r7rYdcMu">pic.twitter.com/62r7rYdcMu</a>
+            </p>&mdash; Peter Neubauer (@peterneubauer) <a
+                    href="https://twitter.com/peterneubauer/statuses/371889380925124608">August 26, 2013</a>
+            </blockquote>
+        </div>
+
+    </div>
+</section>
+<hr>
+
+
+<section id="Vem" class="sec sec3 ">
+
+    <div class="container">
+        <h2>Vem driver Kidscraft?</h2>
+
+        <div class="span12 pull-center">
+            <div class="span2 offset2">
+                <img class="thumbnail img-rounded"
+                     src='http://dl.dropboxusercontent.com/u/5925006/profile/peter_mini.png'/>
+
+                <h3>Peter Neubauer, Initiativtagare</h3>
+                Jag älskar att göra Malmö till ett nav för entreprenörskap, innovation och lärande. <a
+                    href='http://se.linkedin.com/in/neubauer' target='_blank'>Peter Neubauer</a>
+            </div>
+            <div class="span2">
+                <img class="thumbnail img-rounded" src='/img/Finnur.jpg'/>
+
+                <h3>Finnur</h3>
+                Barn och ungdomar är inte vår framtid, de är vår nutid. Alla måste förstå hur coola de redan är. <a
+                    href='http://finnur.se/'>Finnur.se</a>
+            </div>
+            <!--<div class="span2">-->
+            <!--<img class="thumbnail img-rounded" src='/img/marie.jpg'/>-->
+
+            <!--<h3>Marie Neubauer</h3>-->
+            <!--Service Design, PR och Customer Relations. <a-->
+            <!--href='http://se.linkedin.com/pub/marie-neubauer/26/b79/402' target='_blank'>Marie Neubauer</a>-->
+            <!--</div>-->
+            <div class="span2">
+                <img class="thumbnail img-rounded"
+                     src='/img/magnus.jpg'/>
+
+                <h3>Magnus Robertsson</h3>
+                <a
+                        href='http://se.linkedin.com/in/magnusrobertsson/' target='_blank'>LinkedIn</a>
+            </div>
+        </div>
+        <div class="span12 pull-center">
+
+            <div class="span2 offset2">
+                <img class="thumbnail img-rounded"
+                     src='/img/SiSk-Portraits_Adrian.jpg'/>
+
+                <h3>Adrian Löwander</h3>
+                <a
+                        href='http://www.spelkultur.nu' target='_blank'>Spelkultur</a>
+            </div>
+            <div class="span2">
+                <img class="thumbnail img-rounded"
+                     src='/img/SiSk-Portraits_Jonas.jpg'/>
+
+                <h3>Jonas</h3>
+                <a
+                        href='http://www.spelkultur.nu' target='_blank'>Spelkultur</a>
+            </div>
+            <div class="span2">
+                <img class="thumbnail img-rounded"
+                     src='/img/SiSk-Portraits_Thom.jpg'/>
+
+                <h3>Thom</h3>
+                <a
+                        href='http://www.spelkultur.nu' target='_blank'>Spelkultur</a>
+            </div>
+        </div>
+    </div>
+    <!--<div class="container">
+        <div class="span12 pull-center">
+            <div class="span2">
+                <img class="thumbnail img-rounded"
+                     src='http://www.nav.mah.se/person/picture/ksjohe'/>
+
+                <h3>Joakim Hellberg</h3>
+                <a
+                        href='http://www.nav.mah.se/person/id/KSJOHE' target='_blank'>Malmö Högskola</a>
+            </div>
+            <div class="span2">
+            </div>
+        </div>
+    </div>-->
+
+</section>
+<hr>
+
+
+<section id="Sponsorer" class="sec sec4 ">
+    <div class="container">
+        <h2>Våra sponsorer</h2>
+
+        <div class="span12 pull-center">
+            <div class="span2  offset1">
+                <a href="http://www.ica.se/butiker/maxi/malmo/maxi-ica-stormarknad-vastra-hamnen-11981/start/"
+                   target="_blank"><img class="thumbnail pull-center"
+                                        src='http://www.ica.se/ImageVaultFiles/id_48961/cf_259/maxi-ica-stormarknad-logotyp.PNG?'/></a>
+            </div>
+            <div class="span2">
+                <a href="http://stpln.se/" target="_blank"><img class="thumbnail pull-center" src='/img/stpln.png'/></a>
+            </div>
+            <div class="span2">
+                <a href="http://cityskane.se/malmo/" target="_blank"><img class="thumbnail pull-center"
+                                                                          src='/img/city.png'/></a>
+            </div>
+            <div class="span2">
+                <a href="http://spelkultur.nu/" target="_blank"><img class="thumbnail pull-center"
+                                                                     src='http://www.spelkultur.nu/wp-content/uploads/2013/02/Spelkultur_Logo_RGB_Wide_TransparentBG1.png'/></a>
+            </div>
+        </div>
+    </div>
+    <div class="container">
+        <div class="span12 pull-center">
+            <div class="span2 offset1">
+                <a href="http://www.studieframjandet.se/" target="_blank"><img class="thumbnail pull-center"
+                                                                               src='http://www.studieframjandet.se/Global/Riksf%C3%B6rbundet/Headers/sfr-logo.png'/></a>
+            </div>
+            <div class="span2">
+                <a href="http://neo4j.org" target="_blank"><img height="" class="thumbnail pull-center"
+                                                                src='http://www.neotechnology.com/wp-content/themes/Neo_Technology/images/Neo_Technology_Logo.png'/></a>
+            </div>
+            <div class="span2">
+                <a href="http://sydsvenskan.se" target="_blank"><img class="thumbnail pull-center" src='/img/sds.png'/></a>
+            </div>
+            <div class="span2">
+                <a href="http://minecraft.net" target="_blank"><img class="thumbnail pull-center"
+                                                                    src='http://mojang.com/wp-content/uploads/2012/02/mojang.png'/></a>
+            </div>
+        </div>
+    </div>
+    <div class="container">
+        <div class="span12 pull-center">
+            <div class="span2 offset1">
+                <a href="http://www.mah.se/" target="_blank"><img class="thumbnail pull-center"
+                                                                  src='http://cdn.mah.se/images/header/sv/logo_sv.jpg'/></a>
+            </div>
+        </div>
+    </div>
+
+</section>
+<hr>
+
+
+<section id="Kontakt" class="sec sec5 pull-center fill">
+    <h2>Kontakt</h2>
+
+    <div class="container">
+        <p class="pull-center">Om du har frågor eller vill hålla dig uppdaterad om framtida Kidscraft events, gå med <a
+                href="https://groups.google.com/forum/#!forum/kidscraft" target="_blank">i vårt forum!</a></p>
+    </div>
+
+</section>
+<hr>
+
+
+<div data-spy="affix" data-offset-top="150" id="menuSticky" class="pull-right">
+    <ul>
+        <li title="Intro" href="/#Intro"><a href="/#Intro" class="sec1 smooth"></a></li>
+        <li title="Vad" href="/#Vad"><a href="/#Vad" class="sec2 smooth"></a></li>
+        <li title="Vem" href="/#Vem"><a href="/#Vem" class="sec3 smooth"></a></li>
+        <li title="Sponsorer" href="/#Sponsorer"><a href="/#Sponsorer" class="sec4 smooth"></a></li>
+        <li title="Kontakt" href="/#Kontakt"><a href="/#Kontakt" class="sec5 smooth"></a></li>
+    </ul>
+</div>
+
+<br><br><br><br>
+
+<footer class="footer">
+    <p class="pull-right"><a href="#" id="scrollTop">scroll to top</a></p>
+</footer>
+
+<!--<script src="/bootstrap/js/bootstrap-carousel.js"></script>-->
+<!--<script src="/bootstrap/js/bootstrap-transition.js"></script>-->
+
+<script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-36671748-1']);
+    _gaq.push(['_trackPageview']);
+
+    (function () {
+        var ga = document.createElement('script');
+        ga.type = 'text/javascript';
+        ga.async = true;
+        ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+        var s = document.getElementsByTagName('script')[0];
+        s.parentNode.insertBefore(ga, s);
+    })();
+</script>
+
+</body>
+
+<script>
+    (function (i, s, o, g, r, a, m) {
+        i['GoogleAnalyticsObject'] = r;
+        i[r] = i[r] || function () {
+            (i[r].q = i[r].q || []).push(arguments)
+        }, i[r].l = 1 * new Date();
+        a = s.createElement(o),
+                m = s.getElementsByTagName(o)[0];
+        a.async = 1;
+        a.src = g;
+        m.parentNode.insertBefore(a, m)
+    })(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
+
+    ga('create', 'UA-43525210-1', 'kidscraft.se');
+    ga('send', 'pageview');
+
+</script>
+</html>
