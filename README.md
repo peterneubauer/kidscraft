@@ -11,8 +11,8 @@ Run locally with [jekyll](http://jekyllrb.com/docs/usage/):
 
 Deploy:
 -------
-
+    jekyll build
+    git commit -am 'checking in next deploy'
     git push origin gh-pages:gh-pages
     #this pushes the site to http://peterneubauer.github.io/kidscraft, which www.kidscraft.se is pointing to
 
-    
