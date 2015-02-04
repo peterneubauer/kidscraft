@@ -1,0 +1,435 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>Kidscraft - Minecraft party for kids 8-14 in Malmö</title>
+    <meta name="viewport" content="width=devSPACE-width, initial-scale=1.0">
+    <meta name="description"
+          content="Kidscraft samlar barn i åldern 8-14 år för en spännande eftermiddag på stapeln den 8. Februari 2015.">
+    <style type="text/css">
+        body {
+            padding-top: 0px;
+            padding-bottom: 0px;
+			bgcolor="#FF0000";
+        }
+
+        .footer {
+            position: fixed;
+            z-index: 10;
+            bottom: 5px;
+            right: 10px;
+        }
+
+
+        section {
+            padding-top: 30px;
+        }
+
+		.left {
+		   //background: url(dirt.png);
+		   width: 15%;
+		   position: absolute;
+		   left: 0px;
+		   height: 100%;
+		}
+		.right {
+		   //background: url(dirt.png);
+		   width: 15%;
+		   position: absolute;
+		   right: 0px;
+		   height: 100%;
+		}
+
+		.middle{
+			margin: 0 auto;
+		}
+		
+    </style>
+
+    <script src="//html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <script src="http://code.jquery.com/jquery-1.10.1.min.js"></script>
+    <script defer src="//ajax.googleapis.com/ajax/libs/chrome-frame/1.0.3/CFInstall.min.js"></script>
+    <script src="bootstrap/js/bootstrap.js"></script>
+    <script src="bootstrap/js/bootstrap-carousel.js"></script>
+    <script src="bootstrap/js/bootstrap-transition.js"></script>
+    <link href="bootstrap/css/bootstrap.css" rel="stylesheet">
+    <link href="bootstrap/css/bootstrap-responsive.css" rel="stylesheet">
+
+    <script>
+        function unspace(str) {
+            if (str == null)
+                return;
+
+            return str.replace("!", "").toLowercase().replace(" ", "");
+        }
+
+        $(document).ready(function () {
+
+            $('#scrollTop').click(function () {
+                $('html, body').animate({scrollTop: 0}, 'slow');
+                return false;
+            });
+
+            $('[title]').tooltip();
+
+            /* dot nav */
+            redrawDotNav();
+
+            $(window).bind('scroll', function (e) {
+//                parallaxScroll();
+                redrawDotNav();
+            });
+
+            function redrawDotNav() {
+
+                var topNavHeight = 61;
+
+                $('#menuSticky li a').removeClass('active').parent('li').removeClass('active');
+
+                var numDivs = $('section.sec').length;
+                $('section.sec').each(function (i, item) {
+                    var ele = $(item), nextTop;
+                    console.log("sec", ele);
+
+                    var sec_2 = $('section.sec' + (i + 2));
+                    console.log("sec_2", sec_2.offset());
+                    if (sec_2.offset()) {
+                        nextTop = sec_2.offset().top;
+                    }
+                    else {
+                        nextTop = $(document).height();
+                    }
+
+
+                    if (ele.offset() !== null) {
+                        thisTop = ele.offset().top - ((nextTop - ele.offset().top) / numDivs);
+                    }
+                    else {
+                        thisTop = 0;
+                    }
+
+                    var docTop = $(document).scrollTop() + topNavHeight;
+
+                    if (docTop >= thisTop && (docTop < nextTop)) {
+                        $('#menuSticky a.sec' + (i + 1)).parent('li').addClass('active');
+                    }
+                });
+
+            }
+
+            /* end dot nav */
+
+            $('#section-menu li:first').addClass("active");
+            $('#section-menu li a, #admin-menu li a, .smooth, #menuSticky li').click(function () {
+                var id = $(this).attr("href").replace("/", ""),
+                        posi,
+                        ele,
+                        padding = parseInt($('body').css('padding-top'));
+
+                ele = $(id);
+                posi = ($(ele).offset() || 0).top - padding;
+
+                $('html, body').animate({scrollTop: posi}, 'slow');
+
+                return false;
+            });
+
+            $('#main-menu li a').click(function () {
+                $('#main-menu li').removeClass('active');
+                $(this).parent().addClass('active');
+            });
+
+            var test = 'dummy'
+
+        });
+
+        /* alert handling */
+
+        function showAlert(msg) {
+            if (typeof msg == "undefined")
+                return;
+
+            console.log("alerting:" + msg);
+
+            $('#msgBox').html(msg + '<a class="close" href="#">&times;</a>').fadeIn().delay(3500).fadeOut('slow');
+
+            return false;
+        }
+
+
+        /* end alert handling */
+
+    </script>
+</head>
+
+<div class="left">
+</div>
+
+<div class="right">
+</div>
+
+<body bgcolor="#FF0000";>
+<div class="middle">
+
+<div class="navbar navbar-fixed-top">
+    <div class="navbar-inner">
+        <div class="container-fluid">
+            <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </a>
+            <a class="brand" href="/">Kidscraft</a>
+
+            <div class="nav-collapse" id="main-menu">
+                <ul class="nav" id="section-menu">
+                    <li id="menuIntro"><a href="/#Intro" title="Hem">Hem</a></li>
+                    <li id="menuVad"><a href="/#Vad" title="Vad">Vad</a></li>
+                    <li id="menuWhy"><a href="/#why" title="Vad">Varför</a></li>
+                    <li id="menuOne"><a href="/#one" title="One">Kidscraft #1</a></li>
+                    <li id="menuVem"><a href="/#Vem" title="Vem">Vem</a></li>
+                    <li id="menuSponsorer"><a href="/#Sponsorer" title="Sponsorer">Sponsorer</a></li>
+                    <li id="menuKontakt"><a href="/#Kontakt" title="Kontakt">Kontakt</a></li>
+                </ul>
+            </div>
+            <a class="brand" href="/faq.html" title="FAQ">FAQ</a>
+        </div>
+    </div>
+</div>
+
+<div class="container-fluid">
+    <div class="span3 alert alert-info" id="msgBox"
+         style="top:10%;right:3%;position:fixed;z-index:100;display:none;"></div>
+</div>
+
+<style>
+    #myCarousel {
+    }
+</style>
+
+<script>
+    $(document).ready(function () {
+
+        $('#scrollTop').click(function () {
+            $('html, body').animate({scrollTop: 0}, 'slow');
+            return false;
+        });
+
+        $('#btnContact').click(function () {
+
+            var form = $('#contactForm');
+
+            $.ajax({
+                type: 'post',
+                data: form.serialize(),
+                url: '/contact',
+                success: function (msg) {
+                    showAlert("Success: " + msg);
+                },
+                error: function (msg) {
+                    showAlert("Error: " + msg);
+                }
+            });
+
+            return false;
+        })
+    });
+</script>
+
+
+<section id="Intro" class="sec sec1 pull-center">
+    <div class="slide pull-center fill">
+	<br>
+        <img class="fill" src="img/kidscraft.png"/ style="width:100%; width:auto;">
+        <br/>
+        <div></div>
+    </div>
+
+</section>
+<hr>
+
+<style>
+.content {
+    background-color: white;
+    margin: 0 auto;
+    max-width: 70%;
+    padding: 0 30px;
+    position: relative;
+}
+</style>
+
+<div class="content">
+
+<section id="Vad" class="sec sec2 fill">
+    <div class="container">
+
+        <div class="span6 pull-center" style="text-align: left;">
+			<h2>Är du mellan 8-14 år och älskar Minecraft lika mycket som vi gör?</h2>
+            <p><b>Då bör du komma till Kidscraft SPACE 8 februari 2015, LAN:et där kidsen bestämmer! För fjärde gången arrangerar vi Kidscraft, ett Minecraft LAN med tävlingar och andra påhitt.
+Som förälder har ni dessutom chansen att delta på en gratis föreläsning om datorspel, e-sport och ungas spelande av Ronja Nordström från Sthlm e-sport och e-sportkommentatorn Sang Lee.
+Föreläsningen börjar kl. 13.00
+            </b></p>
+
+            <p>För att delta på Kidscraft "SPACE" krävs:
+            <ul>
+                <li>Medlemskap i föreningen (Första Kidscraft var helt gratis och vi vill gärna fortsätta hålla
+                    deltagaravgifterna så låga som möjligt. För att underlätta detta kommer vi inför eventet att starta
+                    upp en förening. Mer detaljer kommer senare).
+                </li>
+                <li>Egen dator (har du inte möjlighet att ta med en dator så hör av dig)
+                </li>
+                <li>Eget Minecraft-login (https://minecraft.net/store)
+                </li>
+            </ul>
+            </p>
+            <p>
+                <b>KOM IHÅG</b>: Det är viktigt att du registrerar dig på Minecraft redan innan Kidscraft, det kan du
+                göra här:
+                <a href="https://minecraft.net/store">https://minecraft.net/store</a>.
+            </p>
+
+
+            <br/>
+			<div style="width:100%; text-align:left;" >
+			<iframe src="http://www.eventbrite.com/tickets-external?eid=15107588203&ref=etckt&v=2" frameborder="0" height="400" width="100%" vspace="0" hspace="0" marginheight="5" marginwidth="5" scrolling="auto" allowtransparency="true"></iframe>
+			</div>
+			<br>
+			<a href="http://www.eventbrite.com/e/test-tickets-15601512544?ref=ebtn" target="_blank"><img src="https://www.eventbrite.com/custombutton?eid=15601512544" alt="Eventbrite - Test" /></a>
+            <!--<div style="width:100%; text-align:left;">
+                <iframe src="http://www.eventbrite.com/tickets-external?eid=9591768237&ref=etckt&v=2" frameborder="0"
+                        height="400" width="100%" vspace="0" hspace="0" marginheight="5" marginwidth="5"
+                        scrolling="auto" allowtransparency="true"></iframe>
+            </div>-->
+        </div>
+    </div>
+</section>
+<section id="why" class="sec sec2 fill">
+    <div class="container">
+
+        <h1>Varför arrangerar vi Kidscraft?</h1>
+
+        <p>Spelkultur är den snabbast växande formen av kulturutövande i Sverige. Enligt Statens medieråd spelar
+            över 80
+            procent av alla svenska barn och unga någon form av dator- eller tv-spel. Trots detta finns det extremt
+            få
+            LAN-event som riktar sig till just barn. Tillfällen där unga gamers skulle kunna få möjlighet att träffa
+            andra datorintresserade i sin egen ålder. Genom Kidscraft vill vi skapa en sådan mötesplats. En trygg
+            LAN-miljö för barn där kreativet och skapande samarbeten kan ligga i fokus.
+        </p>
+
+        <p>För personer som spelar datorspel är det ganska uppenbart hur kul och utvecklande deras spelande kan
+            vara.
+            Men tyvärr är inte synen på datorspelande lika okomplicerad. Datorspel har fått ett oförtjänt dåligt
+            rykte i
+            media och betraktas fortfarande med föräldravärldens skepsis. I den egenskapen är Kidscraft är ett
+            pioniärprojekt. Ett projekt som går ut på att visa att spel kan användas för att främja kreativitet och
+            samarbete. Som kan uppmärksamma föräldrar, kritiker och beslutsfattare om behovet av alternativa
+            mötesplatser för barn och vikten av att utgå ifrån ungas egna intressen för att stimulera informella
+            demokrati- och läroprocesser.
+        </p>
+
+        <h1> Varför Minecraft?</h1>
+
+        <p>Minecraft var ett världsfenomen redan innan spelet hade lanserats. Den öppna spelvärlden i kombination
+            med
+            ett
+            enkelt system för att skapa, utvecklas och uppleva äventyr, erbjuder spelare möjligheten att uttrycka
+            sig
+            kreativt samtidigt som de kan ha roligt och skapa tillsammans med andra. En kombination som utan tvekan
+            gjort
+            Minecraft till ett av världens mest populära spel.</p>
+
+        <p>Minecraft har till skillnad från många andra spel en låg åldersgräns, är lätt att sätta sig in i och ett
+            upplägg
+            som uppmuntrar till samarbete och kreativitet. Faktorer som gör att Minecraft lämpar sig väldigt väl för
+            att
+            arbeta med barn och unga. Det är också ett exemplariskt verktyg för att visa på informella
+            läroprocesser.
+        </p>
+
+        <h2>
+            Glöm inte att ta med
+        </h2>
+        <ul>
+
+            <li>din egen <b>dator</b> (Har du inte en egen dator? Hör av dig så fort du kan genom att mejla oss!)
+            </li>
+            <li>din <b>Minecraft-login</b></li>
+            <li>gärna en egen <b>förgreningskontakt</b> om du har en sån hemma!</li>
+            <li>om du har, en Ethernet <b>nätsladd</b> så att du får snabbara nätverk än om du surfar trådlöst.</li>
+        </ul>
+
+        <h2>Regler</h2>
+        <ul>
+            <li>Inget griefande</li>
+            <li>Spela bara minecraft, inga andra internet-spel</li>
+            <li>Använd bara de världar som finns uppsatta, inte dina egna, eftersom annars du tar med dig världen
+                när du
+                går.
+            </li>
+        </ul>
+
+        <p>Om du har tips, funeringar eller önskemål om server setups (till exempel - vill du spela på en
+            ScriptCraft
+            Server?),
+            byggprojekt och andra ideer låt oss <a href="#Kontakt">veta</a> nedan. Det skall bli superkul att ha dig
+            med!
+        </p>
+    </div>
+    </div>
+</div>
+<div data-spy="affix" data-offset-top="150" id="menuSticky" class="pull-right">
+    <ul>
+        <li title="Intro" href="/#Intro"><a href="/#Intro" class="sec1 smooth"></a></li>
+        <li title="Vad" href="/#Vad"><a href="/#Vad" class="sec2 smooth"></a></li>
+        <li title="Vem" href="/#Vem"><a href="/#Vem" class="sec3 smooth"></a></li>
+        <li title="Sponsorer" href="/#Sponsorer"><a href="/#Sponsorer" class="sec4 smooth"></a></li>
+        <li title="Kontakt" href="/#Kontakt"><a href="/#Kontakt" class="sec5 smooth"></a></li>
+    </ul>
+</div>
+
+<br><br><br><br>
+
+<footer class="footer">
+    <p class="pull-right"><a href="#" id="scrollTop">scroll to top</a></p>
+</footer>
+
+<!--<script src="/bootstrap/js/bootstrap-carousel.js"></script>-->
+<!--<script src="/bootstrap/js/bootstrap-transition.js"></script>-->
+
+<script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-36671748-1']);
+    _gaq.push(['_trackPageview']);
+
+    (function () {
+        var ga = document.createElement('script');
+        ga.type = 'text/javascript';
+        ga.async = true;
+        ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+        var s = document.getElementsByTagName('script')[0];
+        s.parentNode.insertBefore(ga, s);
+    })();
+</script>
+
+</div>
+</body>
+
+<script>
+    (function (i, s, o, g, r, a, m) {
+        i['GoogleAnalyticsObject'] = r;
+        i[r] = i[r] || function () {
+            (i[r].q = i[r].q || []).push(arguments)
+        }, i[r].l = 1 * new Date();
+        a = s.createElement(o),
+                m = s.getElementsByTagName(o)[0];
+        a.async = 1;
+        a.src = g;
+        m.parentNode.insertBefore(a, m)
+    })(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
+
+    ga('create', 'UA-43525210-1', 'kidscraft.se');
+    ga('send', 'pageview');
+
+</script>
+</html>
