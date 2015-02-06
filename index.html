@@ -54,8 +54,14 @@
 			border-bottom: thin solid #000000;
         }
 		
-		body {
-			
+		.contents {
+			position: relative;
+			top: 100px;
+		}
+		
+		.contents.scroll {
+			potition: relative;
+			top: 0px;
 		}
 		
 		.header-img {
@@ -123,12 +129,14 @@ $(window).scroll(function() {
 		$('.header-img').addClass("sticky");
 		$('.header-img-title').addClass("sticky");
 		$('.skud-fixed').addClass("sticky");
+		$('.contents').addClass("scroll");
     }
     else{
 		$('header').removeClass("sticky");
         $('.header-img').removeClass("sticky");
 		$('.header-img-title').removeClass("sticky");
 		$('.skud-fixed').removeClass("sticky");
+		$('.contents').removeClass("scroll");
     }
 });
 </script>
@@ -142,6 +150,7 @@ $(window).scroll(function() {
 </header>
 
 <div class="content">
+<div class="contents">
 	<br><br><br><br><br><br><br><br>
 	<h2>Är du mellan 8-14 år och älskar Minecraft lika mycket som vi gör?</h2>
             <p><strong>Då bör du komma till Kidscraft SPACE 8 februari 2015, LAN:et där kidsen bestämmer! För fjärde gången arrangerar vi Kidscraft, ett Minecraft LAN med tävlingar och andra påhitt.
@@ -253,6 +262,7 @@ Föreläsningen börjar kl. 13.00.
 			<li>Chris Jonasson <a href="https://twitter.com/chrishka" target="_blank">@Chrishka</a></li>
 		</ul>
 		</strong>
+</div>
 </div>
 </body>
 </html>
