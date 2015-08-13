@@ -73,7 +73,7 @@ body {
 #content {
 	z-index: 0;
 	background-color: #fff;
-	width: calc(75% - 60px - 200px);
+	width: calc(75% - 60px - 300px);
 	min-height: calc(100% - 70px - 15px);
 	height: calc(auto - 70px - 15px);
 	margin: 0 auto;
