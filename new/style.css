@@ -45,7 +45,8 @@ body {
 #header #nav #menu .menuButton {
 	background: #BCBCBC;
 	height: 100%;
-	width: 25%;
+	width: calc(25% - 6px);
+	margin-left: 6px;
 	float: left;
 	text-align: center;
 	box-shadow: inset 3px 4px 9px -6px;
