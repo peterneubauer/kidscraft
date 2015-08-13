@@ -1,0 +1,101 @@
+body {
+	margin: 0;
+	background: url(img/background-fade.png);
+	background-size: 100% auto;
+	background-repeat: no-repeat;
+	background-color: #546D33;
+	font-family: 'Oswald', sans-serif;
+}
+#header {
+	z-index: 100;
+	background-color: #CFCFCF;
+	width: 100%;
+	height: 70px;
+	position: fixed;
+	box-shadow: 0 8px 10px -5px gray;
+}
+#headerShadow {
+	z-index: -1;
+	width: 100%;
+	height: 70px;
+	position: fixed;
+	box-shadow: 0 8px 10px -2px gray;
+}
+#header #logo {
+	height: 100%;
+	width: 50%;
+	float: left;
+}
+#header #logo img {
+	vertical-align: center;
+	margin-left: 5px;
+}
+#header #nav {
+	float: right;
+	height: 100%;
+	width: 50%;
+}
+#header #nav #menu {
+	height: 50%;
+	width: 600px;
+	position: absolute;
+	right: 0;
+	bottom: 0;
+}
+#header #nav #menu .menuButton {
+	background: #BCBCBC;
+	height: 100%;
+	width: 25%;
+	float: left;
+	text-align: center;
+	box-shadow: inset 3px 4px 9px -6px;
+}
+#header #nav #menu a { text-decoration: none; }
+#header #nav #menu a:link, a:visited { color: black; }
+#header #nav #menu a:hover { color: black; }
+#header #nav #menu .menuButton span{
+	display: inline-block;
+	vertical-align: middle;
+	line-height: 100%;
+}
+#header #logo img {
+	height: 90%;
+	position: absolute;
+	top: 50%;
+	transform: translateX(0) translateY(-50%);
+}
+#header h1 {
+	font-size: 50px;
+	height: 70px;
+	margin-top: 0;
+	margin-bottom: 0;
+}
+#content {
+	z-index: 0;
+	background-color: #fff;
+	width: calc(75% - 60px - 200px);
+	min-height: calc(100% - 70px - 15px);
+	height: calc(auto - 70px - 15px);
+	margin: 0 auto;
+	position: relative;
+	top: 70px;
+	box-shadow: 2px 0 10px -2px gray, -2px 0 10px -2px gray;
+	padding-left: 30px;
+	padding-right: 30px;
+	padding-top: 1px;
+	color: #333;
+	font-family: Arial, Helvetica, sans-serif;
+}
+#content strong {
+	
+}
+#footer {
+	width: 100%;
+	height: 15;
+	text-align: center;
+	position: realtive;
+}
+#footer p {
+	margin: 0;
+	font-size: 13px;
+}
