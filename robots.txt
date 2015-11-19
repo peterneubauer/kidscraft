@@ -3,3 +3,4 @@
 
 User-agent: *
 
+Sitemap: http://kidscraft.se/sitemap.xml
