@@ -1,0 +1,30 @@
+body {
+	margin: 0;
+	padding: 0;
+	background-color: #e6e6e6;
+
+	position: fixed; 
+    width: 100%;
+
+    /*font-family: {font};*/
+}
+
+#content{
+	position: absolute;
+	width: 100vw;
+	height: 100vh;
+}
+#contentLeft {
+	position: relative;
+	float: left;
+	width: 50%;
+	height: 100%;
+	background-color: blue;
+}
+#contentRight {
+	position: relative;
+	float: right;
+	width: 50%;
+	height: 100%;
+	background-color: red;
+}

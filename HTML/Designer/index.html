@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Website Designer by Script_Coded</title>
+	<link rel="stylesheet" type="text/css" href="css/style.css">
+	<link href='https://fonts.googleapis.com/css?family=Lato:400,700&subset=latin,latin-ext' rel='stylesheet' type='text/css'>
+	<script src="http://code.jquery.com/jquery-latest.min.js" type="text/javascript"></script>
+	<script src="http://code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+	<script src="js/jquery.nicescroll.min.js"></script>
+	<script>
+		template1 = [
+			"<style type='text/css'>body {margin: 0;padding: 0;background-color: #e6e6e6;position: fixed;     width: 100%;    /*font-family: {font};*/}#content{position: absolute;width: 100vw;height: 100vh;}#contentLeft {position: relative;float: left;width: 50%;height: 100%;background-color: blue;}#contentRight {position: relative;float: right;width: 50%;height: 100%;background-color: red;}</style>",
+			"<title>{websitetitle}</title>{style}<!--<link href='{fontlink}' rel='stylesheet' type='text/css'>--></head>",
+			"<body><div id='content'><div id='contentLeft'></div><div id='contentRight'></div></div></body>"]; template1[1] = template1[1].replace("{style}", template1[0]);
+		$(document).ready(function() {
+			$("#contentLeft").niceScroll({cursorborder:"0", cursorcolor:"#999999"});
+			function updatePreview() {
+				$("#desktopPreview").contents().find("head").html(template1[1]);
+				$("#desktopPreview").contents().find("body").html(template1[2]);
+			}
+			updatePreview();
+		});
+	</script>
+</head>
+<body>
+	<div id="content">
+		<div id="contentLeft">
+			<div class="optionSection" id="layoutSection">
+				<h1>Layout</h1>
+				<p>Choosing the layout of your webpage is probably one of the most important decisions to make. For a newspage, you might want multiple columns and different categories whilst for a blog you might want to focus on the posts only.</p>
+				<div id="optionLayouts">
+					<div class="optionLayout selected"><img src="layouts/template1.png"></div><div class="optionLayout"><img src="layouts/template2.png"></div><div class="optionLayout"><img src="layouts/template3.png"></div>
+				</div>
+			</div>
+			<div class="optionSection" id="layoutSection">
+				<h1>Theme and colors</h1>
+				<p>Your webpage theme and colors are also very important. Nobody wants a plain old black and white webpage. Or well, usually not.</p>
+			</div>
+		</div>
+		<div id="contentRight">
+			<iframe id="desktopPreview" class="finescroll" frameborder="0"></iframe>
+		</div>
+	</div>
+</body>
+</html>

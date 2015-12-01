@@ -1,0 +1,39 @@
+body {
+	padding: 20px;
+}
+
+.inputs {
+	margin-left: auto;
+	margin-right: auto;
+	text-align: left;
+	width: 800px;
+}
+
+input {
+	outline: none;
+	outline-width: 0;
+	border: none;
+	border-bottom: 3px solid #808080;
+	background-color: #e6e6e6;
+}
+
+input[type="text"] {
+	height: 30px;
+	background-color: #fff;
+	-moz-transition: all .2s ease-in;
+	-o-transition: all .2s ease-in;
+	-webkit-transition: all .2s ease-in;
+	transition: all .2s ease-in;
+}
+
+input[type="text"]:focus {
+	background-color: #f2f2f2;
+}
+
+input[type="text"]:hover {
+	background-color: #f2f2f2;
+}
+
+input[type="button"]:active {
+	border-bottom: 3px solid #bfbfbf;
+}
